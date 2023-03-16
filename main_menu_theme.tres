@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cnuxac3ofl1b7"]
+
+[ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://menu_button_unclicked.tres" id="1_imemu"]
+
+[sub_resource type="FontFile" id="FontFile_ff2ty"]
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[resource]
+Button/font_sizes/font_size = 16
+Button/fonts/font = SubResource("FontFile_ff2ty")
+Button/styles/disabled = ExtResource("1_imemu")
+Button/styles/focus = ExtResource("1_imemu")
+Button/styles/hover = ExtResource("1_imemu")
+Button/styles/normal = ExtResource("1_imemu")
+Button/styles/pressed = ExtResource("1_imemu")

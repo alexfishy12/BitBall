@@ -1,0 +1,117 @@
+[gd_scene load_steps=9 format=3 uid="uid://cyjp47k5i30rn"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_yf2uu"]
+[ext_resource type="Texture2D" uid="uid://b4hrm4l7lwiy8" path="res://Art/GameEnvironment.png" id="2_h2dnx"]
+[ext_resource type="PackedScene" uid="uid://cesombxseq2bt" path="res://paddle_blue.tscn" id="3_gugta"]
+[ext_resource type="PackedScene" uid="uid://cquyrrh87yhw" path="res://paddle_red.tscn" id="4_roi1j"]
+[ext_resource type="Script" path="res://Label_Mover.gd" id="5_ioexg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kg6fs"]
+size = Vector2(768, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tl6vq"]
+size = Vector2(768, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0slyo"]
+size = Vector2(220.625, 1160)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_yf2uu")
+
+[node name="GameEnvironment" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(400, 248)
+texture = ExtResource("2_h2dnx")
+
+[node name="TopBorder" type="StaticBody2D" parent="GameEnvironment"]
+position = Vector2(0, -248)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameEnvironment/TopBorder"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_kg6fs")
+
+[node name="BottomBorder" type="StaticBody2D" parent="GameEnvironment"]
+position = Vector2(0, 248)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameEnvironment/BottomBorder"]
+position = Vector2(0, 28)
+shape = SubResource("RectangleShape2D_tl6vq")
+
+[node name="Blue_Goal" type="Area2D" parent="GameEnvironment"]
+position = Vector2(-416, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameEnvironment/Blue_Goal"]
+position = Vector2(-88, -16)
+shape = SubResource("RectangleShape2D_0slyo")
+
+[node name="Red_Goal" type="Area2D" parent="GameEnvironment"]
+position = Vector2(416, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameEnvironment/Red_Goal"]
+position = Vector2(86.3125, 8)
+shape = SubResource("RectangleShape2D_0slyo")
+
+[node name="Paddle_Blue" parent="." instance=ExtResource("3_gugta")]
+position = Vector2(-4, 248)
+player_name = "blue"
+is_server = true
+play_location = Vector2(20, 248)
+move_up = "player1_up"
+move_down = "player1_down"
+serve = "player1_serve"
+
+[node name="Paddle_Red" parent="." instance=ExtResource("4_roi1j")]
+position = Vector2(804, 248)
+player_name = "red"
+play_location = Vector2(780, 248)
+move_up = "player2_up"
+move_down = "player2_down"
+serve = "player2_serve"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score_Label_Blue" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = -96.0
+offset_top = 16.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 24
+text = "000"
+script = ExtResource("5_ioexg")
+play_location = Vector2(32, 16)
+
+[node name="Score_Label_Red" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 16.0
+offset_right = 896.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 24
+text = "000"
+horizontal_alignment = 2
+script = ExtResource("5_ioexg")
+play_location = Vector2(672, 16)
+
+[node name="TextureRectBlue" type="TextureRect" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRectRed" type="TextureRect" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="body_entered" from="GameEnvironment/Blue_Goal" to="." method="_on_blue_goal_body_entered"]
+[connection signal="body_entered" from="GameEnvironment/Red_Goal" to="." method="_on_red_goal_body_entered"]
