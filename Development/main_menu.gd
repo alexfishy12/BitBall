@@ -22,7 +22,7 @@ var next_scene: PackedScene
 @export var transition_time: float = 5
 
 var ball_speed
-var center_of_screen := Vector2(400, 248)
+var center_of_screen := Vector2(320, 180)
 var ball_should_move := false
 
 # Called when the node enters the scene tree for the first time.

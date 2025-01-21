@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_6it1a"]
 [ext_resource type="PackedScene" uid="uid://dsewrq7y6mnch" path="res://one_player_game.tscn" id="2_5hxt7"]
-[ext_resource type="PackedScene" uid="uid://cyjp47k5i30rn" path="res://two_players_game.tscn" id="2_22a1n"]
 [ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Art/PongusMainMenu.png" id="2_cxsgl"]
 [ext_resource type="AudioStream" uid="uid://wg873c066bmy" path="res://Sounds/Paddle_Hit.ogg" id="2_vlcpa"]
 [ext_resource type="Theme" uid="uid://cnuxac3ofl1b7" path="res://main_menu_theme.tres" id="3_h6y1s"]
 [ext_resource type="AudioStream" uid="uid://iscpl3l3j7pg" path="res://Sounds/Score.ogg" id="3_r63th"]
 [ext_resource type="PackedScene" uid="uid://beep3fm8yoa3g" path="res://Button.tscn" id="4_nco7p"]
-[ext_resource type="Texture2D" uid="uid://dwr7vnupmwjhn" path="res://Art/Ball.png" id="4_wssbj"]
+[ext_resource type="PackedScene" uid="uid://buow2u611bjvw" path="res://two_player_game.tscn" id="5_vw1mi"]
 [ext_resource type="Texture2D" uid="uid://c1qcska832xfp" path="res://Art/Pongus_Title.png" id="7_2q5fn"]
-[ext_resource type="Texture2D" uid="uid://b4hrm4l7lwiy8" path="res://Art/GameEnvironment.png" id="9_3etnf"]
+[ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Art/GameEnvironment.png" id="9_3etnf"]
+[ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Art/Ball_12x12.png" id="11_fj6sk"]
 
 [node name="Menu" type="Control"]
 texture_filter = 1
@@ -24,7 +24,7 @@ script = ExtResource("1_6it1a")
 focus_sound = ExtResource("2_vlcpa")
 select_sound = ExtResource("3_r63th")
 one_player_scene = ExtResource("2_5hxt7")
-two_players_scene = ExtResource("2_22a1n")
+two_players_scene = ExtResource("5_vw1mi")
 transition_time = 3.0
 
 [node name="Background" type="TextureRect" parent="."]
@@ -35,9 +35,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_cxsgl")
+expand_mode = 1
 
 [node name="PongusTitle" type="Sprite2D" parent="."]
-position = Vector2(536, 88)
+position = Vector2(400, 60)
 scale = Vector2(14.9, 14.9)
 texture = ExtResource("7_2q5fn")
 
@@ -80,7 +81,7 @@ centered = false
 
 [node name="Ball_Sprite" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("4_wssbj")
+texture = ExtResource("11_fj6sk")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 

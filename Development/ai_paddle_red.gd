@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var is_server: bool = false
 @export var time_before_serve: float = 1.0
 @export var ai_acceleration: float = 0.01
+@export var is_ai: bool = true
 var direction := Vector2.ZERO
 
 @export_category("Ready Animation")
@@ -20,7 +21,7 @@ var ball = null
 func _ready():
 	Events.connect("player_scored", set_server)
 	Events.connect("ball_spawned", get_ball)
-	position.y = 248
+	position.y = 180
 	just_spawned = true
 	anim_speed = self.global_position.distance_to(play_location) / transition_time
 
@@ -53,8 +54,8 @@ func _physics_process(delta):
 	#direction.y = lerp(direction.y, ball.position.y, 1)
 	
 	velocity = direction * speed
-	position += velocity * delta
-	position.y = clamp(position.y, 40, 456)
+	#position += velocity * delta
+	position.y = clamp(position.y, 40, 320)
 
 
 func set_server(server):

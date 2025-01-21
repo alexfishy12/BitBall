@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var score: int = 0
 @export var speed: int = 600 #pixels per second
 @export var is_server: bool = false
+@export var is_ai: bool = false
 
 @export_category("Ready Animation")
 @export var just_spawned: bool = false
@@ -19,7 +20,7 @@ extends CharacterBody2D
 
 func _ready():
 	Events.connect("player_scored", set_server)
-	position.y = 248
+	position.y = 180
 	just_spawned = true
 	anim_speed = self.global_position.distance_to(play_location) / transition_time
 
@@ -39,7 +40,7 @@ func _physics_process(delta):
 	
 	velocity = direction * speed
 	position += velocity * delta
-	position.y = clamp(position.y, 40, 456)
+	position.y = clamp(position.y, 40, 320)
 	
 	if Input.is_action_just_pressed(serve) && is_server:
 		Events.emit_signal("ball_served", player_name)

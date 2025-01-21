@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var speed: int = 60000 #pixels per second
 @export var direction: Vector2 = Vector2.ZERO
 @export var is_served: bool = false
-var default_pos: Vector2 = Vector2(400, 248)
+var default_pos: Vector2 = Vector2(320, 180)
 @onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var paddle_hit = preload("res://Sounds/Paddle_Hit.ogg")
 @onready var wall_hit = preload("res://Sounds/Wall_Hit.ogg")
@@ -48,4 +48,3 @@ func serve_to(player_name):
 		direction = Vector2(-1, 0)
 	elif player_name == "red":
 		direction = Vector2(1, 0)
-

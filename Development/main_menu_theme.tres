@@ -3,9 +3,6 @@
 [ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://menu_button_unclicked.tres" id="1_imemu"]
 
 [sub_resource type="FontFile" id="FontFile_ff2ty"]
-face_index = null
-embolden = null
-transform = null
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0

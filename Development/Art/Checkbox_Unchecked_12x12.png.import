@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://twbq7u5ro2s7"
-path="res://.godot/imported/GameEnvironment.png-0ad970dac1cd32e5596d9dd8286721b8.ctex"
+uid="uid://c515aircb210y"
+path="res://.godot/imported/Checkbox_Unchecked_12x12.png-8c888da314c6d94c8ad6f8736509a398.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/GameEnvironment.png"
-dest_files=["res://.godot/imported/GameEnvironment.png-0ad970dac1cd32e5596d9dd8286721b8.ctex"]
+source_file="res://Art/Checkbox_Unchecked_12x12.png"
+dest_files=["res://.godot/imported/Checkbox_Unchecked_12x12.png-8c888da314c6d94c8ad6f8736509a398.ctex"]
 
 [params]
 

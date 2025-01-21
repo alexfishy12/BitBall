@@ -2,9 +2,10 @@
 
 [ext_resource type="Theme" uid="uid://cnuxac3ofl1b7" path="res://main_menu_theme.tres" id="1_lgf7f"]
 [ext_resource type="Script" path="res://Button_With_Selector.gd" id="2_s4ts1"]
-[ext_resource type="Texture2D" uid="uid://dwr7vnupmwjhn" path="res://Art/Ball.png" id="3_bybrl"]
+[ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Art/Ball_12x12.png" id="3_8248u"]
 
 [node name="One_player" type="Button"]
+texture_filter = 1
 offset_right = 56.0
 offset_bottom = 23.0
 theme = ExtResource("1_lgf7f")
@@ -14,7 +15,9 @@ script = ExtResource("2_s4ts1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("3_bybrl")
+texture_repeat = 1
+position = Vector2(90, 13)
+texture = ExtResource("3_8248u")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
