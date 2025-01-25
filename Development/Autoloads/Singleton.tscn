@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca62l0102ouy6"]
+
+[ext_resource type="Script" path="res://Autoloads/Singleton.gd" id="1_e8rw7"]
+[ext_resource type="PackedScene" uid="uid://c5lpbyehh2wsy" path="res://Scenes/MainMenu/main_menu.tscn" id="2_6i7vu"]
+[ext_resource type="PackedScene" uid="uid://dsewrq7y6mnch" path="res://Scenes/Gameplay/OnePlayerGame/game.tscn" id="3_ehlu8"]
+
+[node name="Singleton" type="Node"]
+script = ExtResource("1_e8rw7")
+main_menu = ExtResource("2_6i7vu")
+GameScene = ExtResource("3_ehlu8")
