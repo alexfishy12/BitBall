@@ -34,7 +34,7 @@ ball_scene = ExtResource("4_li07v")
 audio_player = NodePath("AudioStreamPlayer2D")
 sound_score = ExtResource("5_id3k2")
 metadata/_edit_vertical_guides_ = [644.0, -4.0]
-metadata/_edit_horizontal_guides_ = [180.0]
+metadata/_edit_horizontal_guides_ = [180.0, -12.0, 8.0, 8.0]
 
 [node name="GameEnvironment" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -72,6 +72,7 @@ shape = SubResource("RectangleShape2D_0slyo")
 [node name="Paddle_Blue" parent="GameEnvironment" instance=ExtResource("7_l6jjt")]
 position = Vector2(-4, 180)
 player_name = "blue"
+speed = 600
 is_server = true
 play_location = Vector2(20, 180)
 move_up = "player1_up"

@@ -8,6 +8,13 @@ extends CharacterBody2D
 @export var time_before_serve: float = 1.0
 @export var ai_acceleration: float = 0.01
 @export var is_ai: bool = true
+
+@export_category("Decision-timed Movement")
+@export var is_decision_allowed: bool = true
+@export var is_direction_change_allowed: bool = true
+@export var decision_time: float = 0.25
+@export var direction_change_time: float = 0.1
+@export var chosen_direction : int = 0
 var direction := Vector2.ZERO
 
 @export_category("Ready Animation")
@@ -19,6 +26,8 @@ var direction := Vector2.ZERO
 var ball = null
 
 func _ready():
+	$DecisionTimer.wait_time = decision_time
+	$DirectionChangeTimer.wait_time = direction_change_time
 	Events.connect("player_scored", set_server)
 	Events.connect("ball_spawned", get_ball)
 	position.y = 180
@@ -38,10 +47,11 @@ func _physics_process(delta):
 
 	if ball == null:
 		return
-
+	
 	var distance_from_ball = abs(ball.position.y - self.position.y)
-	var is_paddle_aligned = 0 < distance_from_ball && distance_from_ball < 16
+	var is_paddle_aligned = distance_from_ball < $CollisionShape2D.shape.size.x / 2
 	Events.emit_signal("should_paddle_move", not(is_paddle_aligned))
+	### acceleration-enabled movement
 	if not(is_paddle_aligned):
 		if ball.position.y > self.position.y:
 			direction.y = lerpf(float(direction.y), 1, ai_acceleration)
@@ -50,12 +60,33 @@ func _physics_process(delta):
 	else:
 		direction.y = lerpf(float(direction.y), 0, ai_acceleration)
 	
-	clamp(direction.y, -1, 1)
 	#direction.y = lerp(direction.y, ball.position.y, 1)
 	
+	### decision-timed movement
+	#if is_decision_allowed:
+		#if is_paddle_aligned:
+			#chosen_direction = 0
+		#elif ball.position.y > self.position.y:
+			#if chosen_direction == -1 and is_direction_change_allowed:
+				#chosen_direction = 1
+				#$DirectionChangeTimer.start()
+			#elif chosen_direction != -1:
+				#chosen_direction = 1
+		#elif ball.position.y < self.position.y:
+			#if chosen_direction == 1 and is_direction_change_allowed:
+				#chosen_direction = -1
+				##$DirectionChangeTimer.start()
+			#elif chosen_direction != 1:
+				#chosen_direction = -1
+		#$DecisionTimer.start()
+		#is_decision_allowed = false
+	#
+	#direction.y = chosen_direction
+		
+	direction.y = clamp(direction.y, -1, 1)
 	velocity = direction * speed * delta
-	#position += velocity
-	position.y = clamp(position.y, 40, 320)
+	position += velocity
+	position.y = clamp(position.y, $CollisionShape2D.shape.size.x / 2 + 8, $CollisionShape2D.shape.size.x / 2 +  320)
 
 
 func set_server(server):
@@ -71,3 +102,11 @@ func get_ball(new_ball):
 	if is_server && ball:
 		await get_tree().create_timer(time_before_serve).timeout
 		serve_ball()
+
+
+func _on_decision_timer_timeout() -> void:
+	is_decision_allowed = true
+
+
+func _on_direction_change_timer_timeout() -> void:
+	is_direction_change_allowed = true

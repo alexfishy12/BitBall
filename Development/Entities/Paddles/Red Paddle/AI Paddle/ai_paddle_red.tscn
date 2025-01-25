@@ -4,18 +4,29 @@
 [ext_resource type="Texture2D" uid="uid://f8kjknaovpl7" path="res://Entities/Paddles/Red Paddle/Paddle_red.png" id="2_8ifhg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vumdi"]
-size = Vector2(64, 8)
+size = Vector2(32, 8)
 
 [node name="Paddle_Red" type="CharacterBody2D" groups=["paddle"]]
 script = ExtResource("1_35vbt")
+speed = 450
+ai_acceleration = 0.75
+decision_time = 0.15
 play_location = Vector2(620, 180)
+metadata/_edit_horizontal_guides_ = [-32.0, 32.0, 16.0, -16.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+scale = Vector2(1, 0.5)
 texture = ExtResource("2_8ifhg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 rotation = -1.5708
 shape = SubResource("RectangleShape2D_vumdi")
 one_way_collision = true
+
+[node name="DecisionTimer" type="Timer" parent="."]
+
+[node name="DirectionChangeTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DecisionTimer" to="." method="_on_decision_timer_timeout"]
+[connection signal="timeout" from="DirectionChangeTimer" to="." method="_on_direction_change_timer_timeout"]
