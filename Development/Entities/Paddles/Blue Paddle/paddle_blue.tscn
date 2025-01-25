@@ -4,16 +4,19 @@
 [ext_resource type="Script" path="res://Entities/Paddles/player.gd" id="2_vkjkh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efm1q"]
-size = Vector2(64, 8)
+size = Vector2(32, 8)
 
 [node name="Paddle_Blue" type="CharacterBody2D" groups=["paddle"]]
 script = ExtResource("2_vkjkh")
+speed = 450
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+scale = Vector2(1, 0.5)
 texture = ExtResource("1_qobdm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.55751e-11, 1.43051e-06)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_efm1q")
 one_way_collision = true
