@@ -22,7 +22,7 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 script = ExtResource("2_tq3g4")
 speed = 30000.0
-speed_increment = 1.0
+max_speed = 80000.0
 paddle_hit = ExtResource("2_ngxj3")
 wall_hit = ExtResource("3_t265y")
 

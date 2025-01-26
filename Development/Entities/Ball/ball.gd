@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 @export_category("Data")
 @export var speed: float
-@export var speed_increment: float
+@export var max_speed: float
+var speed_increment: float = 1.0002
 @export var direction: Vector2 = Vector2.ZERO
 @export var is_served: bool = false
 var default_pos: Vector2 = Vector2(320, 180)
@@ -25,6 +26,7 @@ func _physics_process(delta):
 		return
 		
 	speed = speed * speed_increment
+	speed = min(speed, max_speed)
 	
 	if is_on_ceiling() || is_on_floor():
 		audio_player.set_stream(wall_hit)

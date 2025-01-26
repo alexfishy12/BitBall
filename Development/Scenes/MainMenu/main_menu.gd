@@ -13,6 +13,9 @@ extends Control
 @export var quit_button: Button
 @export var ball_sprite: Sprite2D
 @export var audio_player: AudioStreamPlayer2D
+@export var credits_ui: Control
+@export var credits_button: Control
+@export var credits_back_button: Control
 
 @export_category("Audio Controls")
 @export var master_volume_value_label: Label
@@ -95,6 +98,17 @@ func _on_options_pressed():
 	settings_back.grab_focus()
 	main_options.hide()
 	settings_options.show()
+	
+
+func _on_credits_pressed() -> void:
+	credits_back_button.grab_focus()
+	main_options.hide()
+	credits_ui.show()
+	
+func _on_credits_back_button_pressed() -> void:
+	credits_button.grab_focus()
+	credits_ui.hide()
+	main_options.show()
 
 func _on_quit_pressed():
 	get_tree().quit()
