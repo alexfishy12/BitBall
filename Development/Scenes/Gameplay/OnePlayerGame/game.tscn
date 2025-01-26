@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://cesombxseq2bt" path="res://Entities/Paddles/Blue Paddle/paddle_blue.tscn" id="7_l6jjt"]
 [ext_resource type="Script" path="res://Scenes/Gameplay/UI/Debug_Label.gd" id="8_2olad"]
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="8_3xen2"]
-[ext_resource type="Shader" path="res://Fonts/font-shader.gdshader" id="8_7ecm4"]
 [ext_resource type="Texture2D" uid="uid://dqytod6frkhvd" path="res://Scenes/Gameplay/UI/WinScreen/SeeThroughBG.png" id="9_ekyhf"]
 [ext_resource type="PackedScene" uid="uid://d1ab3udiepd3p" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.tscn" id="10_k6tjv"]
 
@@ -22,8 +21,22 @@ size = Vector2(608, 72)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0slyo"]
 size = Vector2(220.625, 1160)
 
+[sub_resource type="Shader" id="Shader_jsamj"]
+code = "// this shader is used to fix blurry pixel art text
+
+shader_type canvas_item;
+
+uniform float threshold: hint_range(0.0, 1.0, 0.05);
+uniform vec4 color: source_color;
+
+void fragment() {
+	vec4 input_color = texture(TEXTURE, UV);
+	float value = clamp(sign(input_color.a - threshold) + 1.0, 0.0, 1.0);
+	COLOR = vec4(color.rgb, value);
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nxutv"]
-shader = ExtResource("8_7ecm4")
+shader = SubResource("Shader_jsamj")
 shader_parameter/threshold = 1.0
 shader_parameter/color = Color(1, 1, 1, 1)
 

@@ -16,7 +16,8 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/show_image=false
 boot_splash/image="res://Scenes/Signature/RockyGamesFinished_640x360.png"
 boot_splash/use_filter=false
-config/icon="res://Entities/Ball/Ball_12x12.png"
+config/icon="res://Entities/Ball/Ball_360x360.png"
+config/windows_native_icon="res://Ball_360x360.ico"
 
 [audio]
 
