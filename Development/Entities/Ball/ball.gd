@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 @export_category("Data")
-@export var speed: int = 60000 #pixels per second
-@export var speed_increment: float = 1.0001
+@export var speed: float
+@export var speed_increment: float
 @export var direction: Vector2 = Vector2.ZERO
 @export var is_served: bool = false
 var default_pos: Vector2 = Vector2(320, 180)

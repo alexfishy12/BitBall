@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var speed: int = 600 #pixels per second
 @export var is_server: bool = false
 @export var time_before_serve: float = 1.0
-@export var ai_acceleration: float = 0.01
+@export var ai_acceleration: float
 @export var is_ai: bool = true
 
 @export_category("Decision-timed Movement")

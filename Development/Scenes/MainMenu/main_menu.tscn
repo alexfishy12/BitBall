@@ -1,16 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5lpbyehh2wsy"]
+[gd_scene load_steps=15 format=3 uid="uid://c5lpbyehh2wsy"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_bcqhp"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_tmyp6"]
 [ext_resource type="AudioStream" uid="uid://wg873c066bmy" path="res://Entities/Ball/Paddle_Hit.ogg" id="2_cjvl6"]
 [ext_resource type="AudioStream" uid="uid://iscpl3l3j7pg" path="res://Scenes/Gameplay/Score.ogg" id="3_x0wul"]
-[ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Scenes/MainMenu/PongusMainMenu.png" id="6_dat5o"]
-[ext_resource type="Texture2D" uid="uid://c1qcska832xfp" path="res://Scenes/MainMenu/Pongus_Title.png" id="7_og3fb"]
-[ext_resource type="Theme" uid="uid://cnuxac3ofl1b7" path="res://Scenes/MainMenu/main_menu_theme.tres" id="8_ets42"]
+[ext_resource type="Texture2D" uid="uid://bniutmrri45m5" path="res://Scenes/MainMenu/BitBallNoBall.png" id="5_dlyvp"]
+[ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Scenes/MainMenu/MainMenuBG.png" id="6_dat5o"]
 [ext_resource type="PackedScene" uid="uid://beep3fm8yoa3g" path="res://Scenes/MainMenu/Button.tscn" id="9_d2ted"]
+[ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://Scenes/MainMenu/custom_button_theme.tres" id="9_jh10o"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/options/option_ui.gd" id="9_wdhsd"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/Button_With_Selector.gd" id="10_hevcy"]
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="10_l1uv6"]
 [ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Entities/Ball/Ball_12x12.png" id="11_nqhsb"]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="ImageTexture" id="ImageTexture_feluc"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_weedt"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("menu_options", "main_options", "settings_options", "title", "game_environment", "one_player_button", "two_players_button", "options_button", "settings_back", "quit_button", "ball_sprite", "audio_player", "master_volume_value_label", "master_volume_slider", "soundfx_volume_value_label", "soundfx_volume_slider", "music_volume_value_label", "music_volume_slider")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -18,10 +25,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_tmyp6")
 script = ExtResource("1_bcqhp")
+menu_options = NodePath("MenuOptions")
+main_options = NodePath("MenuOptions/MainOptions")
+settings_options = NodePath("MenuOptions/SettingsOptions")
+title = NodePath("Title")
+game_environment = NodePath("Game_Environment")
+one_player_button = NodePath("MenuOptions/MainOptions/Singleplayer")
+two_players_button = NodePath("MenuOptions/MainOptions/Multiplayer")
+options_button = NodePath("MenuOptions/MainOptions/Options")
+settings_back = NodePath("MenuOptions/SettingsOptions/SettingsBack")
+quit_button = NodePath("MenuOptions/MainOptions/Quit")
+ball_sprite = NodePath("Ball_Sprite")
+audio_player = NodePath("AudioStreamPlayer2D")
+master_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/MasterVolumeValueLabel")
+master_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider")
+soundfx_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/SoundFXVolumeValueLabel")
+soundfx_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider")
+music_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/MusicVolumeValueLabel")
+music_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider")
 focus_sound = ExtResource("2_cjvl6")
 select_sound = ExtResource("3_x0wul")
 transition_time = 3.0
+metadata/_edit_horizontal_guides_ = [32.0, 328.0, 221.0]
+metadata/_edit_vertical_guides_ = [608.0, 32.0]
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -33,42 +61,166 @@ grow_vertical = 2
 texture = ExtResource("6_dat5o")
 expand_mode = 1
 
-[node name="PongusTitle" type="Sprite2D" parent="."]
-position = Vector2(400, 60)
-scale = Vector2(14.9, 14.9)
-texture = ExtResource("7_og3fb")
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(447, 67)
+texture = ExtResource("5_dlyvp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BallOnI" type="Sprite2D" parent="Title"]
+position = Vector2(-84, -7)
+texture = ExtResource("11_nqhsb")
+
+[node name="MenuOptions" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.04
-anchor_top = 0.935484
-anchor_right = 0.04
-anchor_bottom = 0.935484
-offset_top = -136.0
-offset_right = 78.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -160.0
+offset_right = 192.0
+offset_bottom = -32.0
 grow_vertical = 0
-theme = ExtResource("8_ets42")
+theme_override_constants/separation = 0
 alignment = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="One_player" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
+[node name="MainOptions" type="VBoxContainer" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Singleplayer" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
+texture_filter = 0
 layout_mode = 2
 focus_neighbor_top = NodePath("../Quit")
+theme = null
 
-[node name="Two_players" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
+[node name="Multiplayer" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
 layout_mode = 2
-text = "2 Players"
+theme = null
+text = "Multiplayer"
 
-[node name="Options" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
-visible = false
+[node name="Options" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
 layout_mode = 2
+theme = null
 text = "Options"
 
-[node name="Quit" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
+[node name="Quit" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../One_player")
+focus_neighbor_bottom = NodePath("../Singleplayer")
+theme = null
 text = "Quit"
+
+[node name="SettingsOptions" type="VBoxContainer" parent="MenuOptions"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SettingsBack" type="Button" parent="MenuOptions/SettingsOptions"]
+layout_mode = 2
+theme_override_styles/focus = ExtResource("9_jh10o")
+theme_override_styles/disabled_mirrored = ExtResource("9_jh10o")
+theme_override_styles/disabled = ExtResource("9_jh10o")
+theme_override_styles/hover_pressed_mirrored = ExtResource("9_jh10o")
+theme_override_styles/hover_pressed = ExtResource("9_jh10o")
+theme_override_styles/hover_mirrored = ExtResource("9_jh10o")
+theme_override_styles/hover = ExtResource("9_jh10o")
+theme_override_styles/pressed_mirrored = ExtResource("9_jh10o")
+theme_override_styles/pressed = ExtResource("9_jh10o")
+theme_override_styles/normal_mirrored = ExtResource("9_jh10o")
+theme_override_styles/normal = ExtResource("9_jh10o")
+text = "Back"
+alignment = 2
+script = ExtResource("10_hevcy")
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuOptions/SettingsOptions/SettingsBack"]
+visible = false
+texture_repeat = 1
+position = Vector2(204, 17)
+texture = ExtResource("11_nqhsb")
+
+[node name="SettingVbox1" type="VBoxContainer" parent="MenuOptions/SettingsOptions"]
+layout_mode = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Master Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuOptions/SettingsOptions/SettingVbox1"]
+layout_mode = 2
+alignment = 1
+
+[node name="MasterVolumeValueLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100%"
+
+[node name="Master Volume Slider" type="HSlider" parent="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("ImageTexture_feluc")
+theme_override_icons/grabber_highlight = ExtResource("11_nqhsb")
+theme_override_icons/grabber_disabled = ExtResource("11_nqhsb")
+value = 100.0
+script = ExtResource("9_wdhsd")
+
+[node name="SettingVbox2" type="VBoxContainer" parent="MenuOptions/SettingsOptions"]
+layout_mode = 2
+
+[node name="SoundFxVolumeLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Sound FX Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuOptions/SettingsOptions/SettingVbox2"]
+layout_mode = 2
+alignment = 1
+
+[node name="SoundFXVolumeValueLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100%"
+
+[node name="Sound FX Volume Slider" type="HSlider" parent="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("ImageTexture_feluc")
+theme_override_icons/grabber_highlight = ExtResource("11_nqhsb")
+theme_override_icons/grabber_disabled = ExtResource("11_nqhsb")
+value = 100.0
+script = ExtResource("9_wdhsd")
+
+[node name="SettingVbox3" type="VBoxContainer" parent="MenuOptions/SettingsOptions"]
+layout_mode = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Music Volume"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenuOptions/SettingsOptions/SettingVbox3"]
+layout_mode = 2
+alignment = 1
+
+[node name="MusicVolumeValueLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100%"
+
+[node name="Music Volume Slider" type="HSlider" parent="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("ImageTexture_weedt")
+theme_override_icons/grabber_highlight = ExtResource("11_nqhsb")
+theme_override_icons/grabber_disabled = ExtResource("11_nqhsb")
+value = 100.0
+script = ExtResource("9_wdhsd")
 
 [node name="Game_Environment" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -80,8 +232,18 @@ visible = false
 texture = ExtResource("11_nqhsb")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SoundFX"
 
-[connection signal="pressed" from="VBoxContainer/One_player" to="." method="_on_one_player_pressed"]
-[connection signal="pressed" from="VBoxContainer/Two_players" to="." method="_on_two_players_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Singleplayer" to="." method="_on_one_player_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Multiplayer" to="." method="_on_two_players_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Quit" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingsBack" to="MenuOptions/SettingsOptions/SettingsBack" method="_on_focus_entered"]
+[connection signal="focus_exited" from="MenuOptions/SettingsOptions/SettingsBack" to="MenuOptions/SettingsOptions/SettingsBack" method="_on_focus_exited"]
+[connection signal="pressed" from="MenuOptions/SettingsOptions/SettingsBack" to="." method="_on_settings_back_pressed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider" to="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider" method="_on_focus_entered"]
+[connection signal="value_changed" from="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider" to="." method="_on_master_volume_value_changed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider" to="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider" method="_on_focus_entered"]
+[connection signal="value_changed" from="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider" to="." method="_on_soundfx_volume_value_changed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider" to="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider" method="_on_focus_entered"]
+[connection signal="value_changed" from="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider" to="." method="_on_music_volume_value_changed"]

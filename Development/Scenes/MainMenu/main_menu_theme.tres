@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://cnuxac3ofl1b7"]
 
-[ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://Scenes/MainMenu/menu_button_unclicked.tres" id="1_imemu"]
+[ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://Scenes/MainMenu/custom_button_theme.tres" id="1_imemu"]
 
 [sub_resource type="FontFile" id="FontFile_ff2ty"]
 cache/0/16/0/ascent = 0.0

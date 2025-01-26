@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://djbupf86vrcpe"]
 
 [ext_resource type="Script" path="res://Entities/Paddles/Red Paddle/AI Paddle/ai_paddle_red.gd" id="1_35vbt"]
-[ext_resource type="Texture2D" uid="uid://f8kjknaovpl7" path="res://Entities/Paddles/Red Paddle/Paddle_red.png" id="2_8ifhg"]
+[ext_resource type="Texture2D" uid="uid://v2tx1xnrhbpr" path="res://Entities/Paddles/Red Paddle/Paddle_red_8x32.png" id="2_rufqg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vumdi"]
 size = Vector2(32, 8)
@@ -9,15 +9,15 @@ size = Vector2(32, 8)
 [node name="Paddle_Red" type="CharacterBody2D" groups=["paddle"]]
 script = ExtResource("1_35vbt")
 speed = 450
-ai_acceleration = 0.75
+ai_acceleration = 1.0
 decision_time = 0.15
 play_location = Vector2(620, 180)
 metadata/_edit_horizontal_guides_ = [-32.0, 32.0, 16.0, -16.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(1, 0.5)
-texture = ExtResource("2_8ifhg")
+position = Vector2(0, 4.76837e-07)
+texture = ExtResource("2_rufqg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708

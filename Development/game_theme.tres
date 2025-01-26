@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ktu1r3yrsmdp"]
+
+[ext_resource type="FontFile" uid="uid://40wjnpe3tc6j" path="res://Fonts/MedodicaRegular.otf" id="1_33c4d"]
+[ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://Scenes/MainMenu/custom_button_theme.tres" id="1_lrwxe"]
+
+[resource]
+default_font = ExtResource("1_33c4d")
+default_font_size = 32
+/styles/Button = ExtResource("1_lrwxe")

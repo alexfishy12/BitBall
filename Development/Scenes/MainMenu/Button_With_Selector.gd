@@ -2,11 +2,12 @@ extends Button
 
 @onready var selector_sprite: Sprite2D = $Sprite2D
 @export var selector_sprite_padding: float = -5
-@onready var vboxcontainer = $".."
+@onready var vboxcontainer = $"../.."
 
 func set_selector():
-	selector_sprite.position.x = vboxcontainer.position.x + vboxcontainer.size.x + selector_sprite_padding
-	selector_sprite.position.y = 1 + position.y + size.y / 2
+	pass
+	#selector_sprite.position.x = vboxcontainer.position.x + vboxcontainer.size.x + selector_sprite_padding
+	#selector_sprite.position.y = 1 + position.y + size.y / 2
 	#selector_sprite.position.x += sprite_margin
 
 

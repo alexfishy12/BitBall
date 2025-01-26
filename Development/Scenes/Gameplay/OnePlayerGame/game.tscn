@@ -1,13 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsewrq7y6mnch"]
+[gd_scene load_steps=17 format=3 uid="uid://dsewrq7y6mnch"]
 
 [ext_resource type="Script" path="res://Scenes/Gameplay/game.gd" id="1_o4wpn"]
 [ext_resource type="PackedScene" uid="uid://djbupf86vrcpe" path="res://Entities/Paddles/Red Paddle/AI Paddle/ai_paddle_red.tscn" id="2_2ndue"]
-[ext_resource type="PackedScene" uid="uid://cquyrrh87yhw" path="res://Entities/Paddles/Red Paddle/paddle_red.tscn" id="3_dn3lx"]
+[ext_resource type="PackedScene" uid="uid://cquyrrh87yhw" path="res://Entities/Paddles/Red Paddle/paddle_red_big.tscn" id="3_dn3lx"]
 [ext_resource type="PackedScene" uid="uid://xjqw6jak37fa" path="res://Entities/Ball/ball.tscn" id="4_li07v"]
 [ext_resource type="AudioStream" uid="uid://iscpl3l3j7pg" path="res://Scenes/Gameplay/Score.ogg" id="5_id3k2"]
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="6_o8lwb"]
 [ext_resource type="PackedScene" uid="uid://cesombxseq2bt" path="res://Entities/Paddles/Blue Paddle/paddle_blue.tscn" id="7_l6jjt"]
 [ext_resource type="Script" path="res://Scenes/Gameplay/UI/Debug_Label.gd" id="8_2olad"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="8_3xen2"]
+[ext_resource type="Shader" path="res://Fonts/font-shader.gdshader" id="8_7ecm4"]
 [ext_resource type="Texture2D" uid="uid://dqytod6frkhvd" path="res://Scenes/Gameplay/UI/WinScreen/SeeThroughBG.png" id="9_ekyhf"]
 [ext_resource type="PackedScene" uid="uid://d1ab3udiepd3p" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.tscn" id="10_k6tjv"]
 
@@ -20,11 +22,17 @@ size = Vector2(608, 72)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0slyo"]
 size = Vector2(220.625, 1160)
 
-[node name="Game" type="Node" node_paths=PackedStringArray("score_label_blue", "score_label_red", "ui_controls", "ui_game_paused", "win_screen", "blue_player", "audio_player")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nxutv"]
+shader = ExtResource("8_7ecm4")
+shader_parameter/threshold = 1.0
+shader_parameter/color = Color(1, 1, 1, 1)
+
+[node name="Game" type="Node" node_paths=PackedStringArray("score_label_blue", "score_label_red", "ui_controls", "ui_player2_controls", "ui_game_paused", "win_screen", "blue_player", "audio_player")]
 script = ExtResource("1_o4wpn")
 score_label_blue = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Blue")
 score_label_red = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Red")
 ui_controls = NodePath("UI/MarginContainer2")
+ui_player2_controls = NodePath("UI/MarginContainer2/HBox_Controls/PlayerTwoControls")
 ui_game_paused = NodePath("UI/TextureRect")
 win_screen = NodePath("WinScreen")
 blue_player = NodePath("GameEnvironment/Paddle_Blue")
@@ -84,12 +92,14 @@ anchor_mode = 0
 
 [node name="UI" type="Control" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_nxutv")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("8_3xen2")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 layout_mode = 1
@@ -113,8 +123,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_outline_color = Color(0, 0.392157, 1, 1)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 24
-text = "00"
+text = "0"
 
 [node name="Score_Label_Red" type="Label" parent="UI/MarginContainer/HBox_Scores"]
 layout_direction = 1
@@ -122,8 +131,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 24
-text = "00"
+text = "0"
 horizontal_alignment = 2
 
 [node name="Debug_Label" type="Label" parent="UI/MarginContainer"]
@@ -156,7 +164,7 @@ horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="UI/TextureRect/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 16
 text = "Press 'escape' to unpause. Press 'backspace' to quit."
 horizontal_alignment = 1
 
@@ -180,7 +188,7 @@ alignment = 1
 [node name="PlayerOneControls" type="Label" parent="UI/MarginContainer2/HBox_Controls"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 15
 text = "W: Up
 D: Down
 Space: Serve"
@@ -189,7 +197,7 @@ Space: Serve"
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 16
 text = "Up Arrow: Up
 Down Arrow: Down
 Keypad Enter: Serve"
@@ -199,6 +207,7 @@ horizontal_alignment = 2
 visible = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SoundFX"
 
 [connection signal="body_entered" from="GameEnvironment/Blue_Goal" to="." method="_on_blue_goal_body_entered"]
 [connection signal="body_entered" from="GameEnvironment/Red_Goal" to="." method="_on_red_goal_body_entered"]
