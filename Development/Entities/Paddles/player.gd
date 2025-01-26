@@ -47,13 +47,10 @@ func _physics_process(delta):
 	velocity = direction * speed
 	position += velocity * delta
 	position.y = clamp(position.y, $CollisionShape2D.shape.size.x / 2 + 8, $CollisionShape2D.shape.size.x / 2 +  320)
-	
-	if Input.is_action_just_pressed(serve) && is_server:
-		Events.emit_signal("ball_served", player_name)
-		is_server = false
-		
+
+
 func _input(event):
-	if event.is_action_pressed(serve) && is_server && ball_spawned:
+	if event.is_action_pressed(serve) && is_server && ball_spawned && not just_spawned:
 		Events.emit_signal("ball_served", player_name)
 		is_server = false
 		ball_spawned = false

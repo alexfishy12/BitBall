@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1qcska832xfp"
-path="res://.godot/imported/Pongus_Title.png-f789438b7ef0481790bbb36b72ff8387.ctex"
+uid="uid://bcjgr5l3bjkuf"
+path="res://.godot/imported/Paddle_blue_8x32.png-8ac5b6886759ff5e2d9ae71faf9f3c84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/MainMenu/Pongus_Title.png"
-dest_files=["res://.godot/imported/Pongus_Title.png-f789438b7ef0481790bbb36b72ff8387.ctex"]
+source_file="res://Entities/Paddles/Blue Paddle/Paddle_blue_8x32.png"
+dest_files=["res://.godot/imported/Paddle_blue_8x32.png-8ac5b6886759ff5e2d9ae71faf9f3c84.ctex"]
 
 [params]
 

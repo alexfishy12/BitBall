@@ -3,6 +3,7 @@ extends Node
 @export var score_label_blue: Label
 @export var score_label_red: Label
 @export var ui_controls: Control
+@export var ui_player2_controls: Control
 @export var ui_game_paused: Control
 @export var win_screen: Control
 @export var blue_player : Node
@@ -23,6 +24,7 @@ func _ready():
 	if game_type == "one_player":
 		red_player = RedAiPaddle.instantiate()
 	elif game_type == "two_player":
+		ui_player2_controls.show()
 		red_player = RedPlayerPaddle.instantiate()
 	
 	red_player.global_position = default_red_paddle_pos
@@ -35,13 +37,13 @@ func player_scored(player):
 	audio_player.play()
 	player.score += 1
 	if player.player_name == "blue":
-		score_label_blue.set_text("%02d" % player.score)
+		score_label_blue.set_text("%01d" % player.score)
 		if player.score > 6:
 			end_game(player.player_name)
 		else:
 			reset_ball()
 	elif player.player_name == "red":
-		score_label_red.set_text("%02d" % player.score)
+		score_label_red.set_text("%01d" % player.score)
 		if player.score > 6:
 			end_game(player.player_name)
 		else:
@@ -80,7 +82,8 @@ func _input(event):
 	if not game_ended:
 		if event.is_action_pressed('escape'):
 			pause_game()
-		if event.is_action_pressed('player1_serve') and ui_controls.visible and Singleton.game_is_paused == false:
+		if event.is_action_pressed('player1_serve') \
+		and ui_controls.visible and not Singleton.game_is_paused and not blue_player.just_spawned:
 			ui_controls.hide()
 	if Singleton.is_game_paused():
 		if event.is_action_pressed('backspace'):

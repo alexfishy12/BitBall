@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://babdj8gc1o83f"
-path="res://.godot/imported/PongusMainMenu.png-4ce395e5446f3fe9e7d83b3e789e11e8.ctex"
+uid="uid://c1qcska832xfp"
+path="res://.godot/imported/Title.png-c49fdc32e5ed8283e082294e1ec93e12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/MainMenu/PongusMainMenu.png"
-dest_files=["res://.godot/imported/PongusMainMenu.png-4ce395e5446f3fe9e7d83b3e789e11e8.ctex"]
+source_file="res://Scenes/MainMenu/Title.png"
+dest_files=["res://.godot/imported/Title.png-c49fdc32e5ed8283e082294e1ec93e12.ctex"]
 
 [params]
 
