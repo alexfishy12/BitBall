@@ -75,7 +75,7 @@ func _input(event):
 		if event.is_action_pressed("player2_serve"):
 			win_screen.check_player_2()
 			player_2_wants_to_replay = true
-		if event.is_action_pressed("escape"):
+		if event.is_action_pressed("quit_game"):
 			Singleton.leave_game()
 		if player_1_wants_to_replay and player_2_wants_to_replay:
 			reset_game()
@@ -86,7 +86,7 @@ func _input(event):
 		and ui_controls.visible and not Singleton.game_is_paused and not blue_player.just_spawned:
 			ui_controls.hide()
 	if Singleton.is_game_paused():
-		if event.is_action_pressed('backspace'):
+		if event.is_action_pressed('quit_game'):
 			Singleton.leave_game()
 			
 func pause_game():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1ab3udiepd3p"]
+[gd_scene load_steps=14 format=3 uid="uid://d1ab3udiepd3p"]
 
 [ext_resource type="Shader" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.gdshader" id="1_7n1m3"]
 [ext_resource type="Script" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.gd" id="1_kt3cu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://cnuxac3ofl1b7" path="res://Scenes/MainMenu/main_menu_theme.tres" id="2_mgirp"]
 [ext_resource type="Texture2D" uid="uid://dd3s3lfw35bmb" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Checked_12x12.png" id="3_6lvlx"]
 [ext_resource type="Texture2D" uid="uid://c515aircb210y" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Unchecked_12x12.png" id="4_ocmml"]
+[ext_resource type="Texture2D" uid="uid://w50mifict0tq" path="res://Scenes/Gameplay/UI/GamepadGlyphs/Glyph_ButtonBottom.png" id="7_hqg1t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d1ebp"]
 shader = ExtResource("1_7n1m3")
@@ -219,11 +220,44 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Press" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "Press 'serve' to play a rematch. Press 'escape' to quit."
+text = "Press"
 horizontal_alignment = 1
+
+[node name="KeyboardControl" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "'Space'"
+
+[node name="JoypadControl" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("7_hqg1t")
+
+[node name="to play a rematch" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "to play a rematch. Press"
+
+[node name="KeyboardControl2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "'Backspace'"
+
+[node name="JoypadControl2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "'Select'"
+
+[node name="to quit" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "to quit."
 
 [node name="CheckboxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

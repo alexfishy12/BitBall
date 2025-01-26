@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dsewrq7y6mnch"]
+[gd_scene load_steps=20 format=3 uid="uid://dsewrq7y6mnch"]
 
 [ext_resource type="Script" path="res://Scenes/Gameplay/game.gd" id="1_o4wpn"]
 [ext_resource type="PackedScene" uid="uid://djbupf86vrcpe" path="res://Entities/Paddles/Red Paddle/AI Paddle/ai_paddle_red.tscn" id="2_2ndue"]
@@ -11,6 +11,9 @@
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="8_3xen2"]
 [ext_resource type="Texture2D" uid="uid://dqytod6frkhvd" path="res://Scenes/Gameplay/UI/WinScreen/SeeThroughBG.png" id="9_ekyhf"]
 [ext_resource type="PackedScene" uid="uid://d1ab3udiepd3p" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.tscn" id="10_k6tjv"]
+[ext_resource type="Texture2D" uid="uid://bt1ox77tapo4m" path="res://Scenes/Gameplay/UI/GamepadGlyphs/Glyph_DPad_Up.png" id="11_uadwp"]
+[ext_resource type="Texture2D" uid="uid://cqjgdvib8mpcg" path="res://Scenes/Gameplay/UI/GamepadGlyphs/Glyph_DPad_Down.png" id="12_3cotr"]
+[ext_resource type="Texture2D" uid="uid://w50mifict0tq" path="res://Scenes/Gameplay/UI/GamepadGlyphs/Glyph_ButtonBottom.png" id="13_4g0ff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kg6fs"]
 size = Vector2(608, 80)
@@ -46,7 +49,7 @@ score_label_blue = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Blue")
 score_label_red = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Red")
 ui_controls = NodePath("UI/MarginContainer2")
 ui_player2_controls = NodePath("UI/MarginContainer2/HBox_Controls/PlayerTwoControls")
-ui_game_paused = NodePath("UI/TextureRect")
+ui_game_paused = NodePath("UI/PauseScreen")
 win_screen = NodePath("WinScreen")
 blue_player = NodePath("GameEnvironment/Paddle_Blue")
 RedAiPaddle = ExtResource("2_2ndue")
@@ -152,7 +155,7 @@ visible = false
 layout_mode = 2
 script = ExtResource("8_2olad")
 
-[node name="TextureRect" type="TextureRect" parent="UI"]
+[node name="PauseScreen" type="TextureRect" parent="UI"]
 visible = false
 layout_mode = 2
 offset_right = 640.0
@@ -161,7 +164,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_ekyhf")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/TextureRect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseScreen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -170,16 +173,35 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/TextureRect/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/PauseScreen/VBoxContainer"]
 layout_mode = 2
 text = "Game is paused!"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="UI/TextureRect/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PauseScreen/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Press" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "Press 'escape' to unpause. Press 'backspace' to quit."
+text = "Press"
 horizontal_alignment = 1
+
+[node name="KeyboardControl" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "'Backspace'"
+
+[node name="GamepadControl" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "'Select'"
+
+[node name="to quit" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "to quit."
 
 [node name="MarginContainer2" type="MarginContainer" parent="UI"]
 layout_mode = 1
@@ -191,20 +213,93 @@ grow_vertical = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_bottom = 32
 
 [node name="HBox_Controls" type="HBoxContainer" parent="UI/MarginContainer2"]
 layout_mode = 2
 size_flags_vertical = 8
 alignment = 1
 
-[node name="PlayerOneControls" type="Label" parent="UI/MarginContainer2/HBox_Controls"]
+[node name="PlayerOneControls2" type="VBoxContainer" parent="UI/MarginContainer2/HBox_Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UpControl" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/UpControl"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
-text = "W: Up
-D: Down
-Space: Serve"
+text = "Up:"
+
+[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/UpControl" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "W"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/UpControl" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("11_uadwp")
+
+[node name="DownControl2" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/DownControl2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Down:"
+
+[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/DownControl2" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "D"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/DownControl2" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("12_3cotr")
+
+[node name="ServeControl2" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/ServeControl2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Serve:"
+
+[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/ServeControl2" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Space"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/ServeControl2" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("13_4g0ff")
+
+[node name="PauseControl" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/PauseControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Pause:"
+
+[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/PauseControl" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Esc"
+
+[node name="GamepadControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/PauseControl" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Start"
 
 [node name="PlayerTwoControls" type="Label" parent="UI/MarginContainer2/HBox_Controls"]
 visible = false
