@@ -1,16 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5lpbyehh2wsy"]
+[gd_scene load_steps=16 format=3 uid="uid://c5lpbyehh2wsy"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_bcqhp"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_tmyp6"]
 [ext_resource type="AudioStream" uid="uid://wg873c066bmy" path="res://Entities/Ball/Paddle_Hit.ogg" id="2_cjvl6"]
 [ext_resource type="AudioStream" uid="uid://iscpl3l3j7pg" path="res://Scenes/Gameplay/Score.ogg" id="3_x0wul"]
-[ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Scenes/MainMenu/PongusMainMenu.png" id="6_dat5o"]
-[ext_resource type="Texture2D" uid="uid://c1qcska832xfp" path="res://Scenes/MainMenu/Pongus_Title.png" id="7_og3fb"]
-[ext_resource type="Theme" uid="uid://cnuxac3ofl1b7" path="res://Scenes/MainMenu/main_menu_theme.tres" id="8_ets42"]
+[ext_resource type="Texture2D" uid="uid://bniutmrri45m5" path="res://Scenes/MainMenu/BitBallNoBall.png" id="5_dlyvp"]
+[ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Scenes/MainMenu/MainMenuBG.png" id="6_dat5o"]
 [ext_resource type="PackedScene" uid="uid://beep3fm8yoa3g" path="res://Scenes/MainMenu/Button.tscn" id="9_d2ted"]
+[ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://Scenes/MainMenu/custom_button_theme.tres" id="9_jh10o"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/options/option_ui.gd" id="9_wdhsd"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/Button_With_Selector.gd" id="10_hevcy"]
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="10_l1uv6"]
 [ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Entities/Ball/Ball_12x12.png" id="11_nqhsb"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/rich_text_label.gd" id="13_6w4kg"]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="ImageTexture" id="ImageTexture_feluc"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_weedt"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("menu_options", "main_options", "settings_options", "title", "game_environment", "one_player_button", "two_players_button", "options_button", "settings_back", "quit_button", "ball_sprite", "audio_player", "credits_ui", "credits_button", "credits_back_button", "master_volume_value_label", "master_volume_slider", "soundfx_volume_value_label", "soundfx_volume_slider", "music_volume_value_label", "music_volume_slider")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -18,10 +26,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_tmyp6")
 script = ExtResource("1_bcqhp")
+menu_options = NodePath("MenuOptions")
+main_options = NodePath("MenuOptions/MainOptions")
+settings_options = NodePath("MenuOptions/SettingsOptions")
+title = NodePath("Title")
+game_environment = NodePath("Game_Environment")
+one_player_button = NodePath("MenuOptions/MainOptions/Singleplayer")
+two_players_button = NodePath("MenuOptions/MainOptions/Multiplayer")
+options_button = NodePath("MenuOptions/MainOptions/Settings")
+settings_back = NodePath("MenuOptions/SettingsOptions/SettingsBack")
+quit_button = NodePath("MenuOptions/MainOptions/Quit")
+ball_sprite = NodePath("Ball_Sprite")
+audio_player = NodePath("AudioStreamPlayer2D")
+credits_ui = NodePath("CreditsUI")
+credits_button = NodePath("MenuOptions/MainOptions/Credits")
+credits_back_button = NodePath("CreditsUI/CreditsBackButton")
+master_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/MasterVolumeValueLabel")
+master_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider")
+soundfx_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/SoundFXVolumeValueLabel")
+soundfx_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider")
+music_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/MusicVolumeValueLabel")
+music_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider")
 focus_sound = ExtResource("2_cjvl6")
 select_sound = ExtResource("3_x0wul")
 transition_time = 3.0
+metadata/_edit_horizontal_guides_ = [32.0, 328.0, 221.0]
+metadata/_edit_vertical_guides_ = [608.0, 32.0]
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -33,42 +65,171 @@ grow_vertical = 2
 texture = ExtResource("6_dat5o")
 expand_mode = 1
 
-[node name="PongusTitle" type="Sprite2D" parent="."]
-position = Vector2(400, 60)
-scale = Vector2(14.9, 14.9)
-texture = ExtResource("7_og3fb")
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(447, 67)
+texture = ExtResource("5_dlyvp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BallOnI" type="Sprite2D" parent="Title"]
+position = Vector2(-84, -7)
+texture = ExtResource("11_nqhsb")
+
+[node name="MenuOptions" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.04
-anchor_top = 0.935484
-anchor_right = 0.04
-anchor_bottom = 0.935484
-offset_top = -136.0
-offset_right = 78.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -160.0
+offset_right = 192.0
+offset_bottom = -32.0
 grow_vertical = 0
-theme = ExtResource("8_ets42")
+theme_override_constants/separation = 0
 alignment = 1
-metadata/_edit_use_anchors_ = true
 
-[node name="One_player" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
+[node name="MainOptions" type="VBoxContainer" parent="MenuOptions"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Singleplayer" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
+texture_filter = 0
 layout_mode = 2
 focus_neighbor_top = NodePath("../Quit")
+theme = null
 
-[node name="Two_players" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
+[node name="Multiplayer" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
 layout_mode = 2
-text = "2 Players"
+theme = null
+text = "Multiplayer"
 
-[node name="Options" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
+[node name="Settings" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
+layout_mode = 2
+theme = null
+text = "Settings"
+
+[node name="Credits" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
+layout_mode = 2
+theme = null
+text = "Credits"
+
+[node name="Quit" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Singleplayer")
+theme = null
+text = "Quit"
+
+[node name="SettingsOptions" type="VBoxContainer" parent="MenuOptions"]
 visible = false
 layout_mode = 2
-text = "Options"
+theme_override_constants/separation = 10
 
-[node name="Quit" parent="VBoxContainer" instance=ExtResource("9_d2ted")]
+[node name="SettingsBack" type="Button" parent="MenuOptions/SettingsOptions"]
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../One_player")
-text = "Quit"
+theme_override_styles/focus = ExtResource("9_jh10o")
+theme_override_styles/disabled_mirrored = ExtResource("9_jh10o")
+theme_override_styles/disabled = ExtResource("9_jh10o")
+theme_override_styles/hover_pressed_mirrored = ExtResource("9_jh10o")
+theme_override_styles/hover_pressed = ExtResource("9_jh10o")
+theme_override_styles/hover_mirrored = ExtResource("9_jh10o")
+theme_override_styles/hover = ExtResource("9_jh10o")
+theme_override_styles/pressed_mirrored = ExtResource("9_jh10o")
+theme_override_styles/pressed = ExtResource("9_jh10o")
+theme_override_styles/normal_mirrored = ExtResource("9_jh10o")
+theme_override_styles/normal = ExtResource("9_jh10o")
+text = "Back"
+alignment = 2
+script = ExtResource("10_hevcy")
+
+[node name="Sprite2D" type="Sprite2D" parent="MenuOptions/SettingsOptions/SettingsBack"]
+visible = false
+texture_repeat = 1
+position = Vector2(204, 17)
+texture = ExtResource("11_nqhsb")
+
+[node name="SettingVbox1" type="VBoxContainer" parent="MenuOptions/SettingsOptions"]
+layout_mode = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Master Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuOptions/SettingsOptions/SettingVbox1"]
+layout_mode = 2
+alignment = 1
+
+[node name="MasterVolumeValueLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100%"
+
+[node name="Master Volume Slider" type="HSlider" parent="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("ImageTexture_feluc")
+theme_override_icons/grabber_highlight = ExtResource("11_nqhsb")
+theme_override_icons/grabber_disabled = ExtResource("11_nqhsb")
+value = 100.0
+script = ExtResource("9_wdhsd")
+
+[node name="SettingVbox2" type="VBoxContainer" parent="MenuOptions/SettingsOptions"]
+layout_mode = 2
+
+[node name="SoundFxVolumeLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Sound FX Volume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuOptions/SettingsOptions/SettingVbox2"]
+layout_mode = 2
+alignment = 1
+
+[node name="SoundFXVolumeValueLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100%"
+
+[node name="Sound FX Volume Slider" type="HSlider" parent="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("ImageTexture_feluc")
+theme_override_icons/grabber_highlight = ExtResource("11_nqhsb")
+theme_override_icons/grabber_disabled = ExtResource("11_nqhsb")
+value = 100.0
+script = ExtResource("9_wdhsd")
+
+[node name="SettingVbox3" type="VBoxContainer" parent="MenuOptions/SettingsOptions"]
+layout_mode = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Music Volume"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenuOptions/SettingsOptions/SettingVbox3"]
+layout_mode = 2
+alignment = 1
+
+[node name="MusicVolumeValueLabel" type="Label" parent="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "100%"
+
+[node name="Music Volume Slider" type="HSlider" parent="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("ImageTexture_weedt")
+theme_override_icons/grabber_highlight = ExtResource("11_nqhsb")
+theme_override_icons/grabber_disabled = ExtResource("11_nqhsb")
+value = 100.0
+script = ExtResource("9_wdhsd")
 
 [node name="Game_Environment" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -80,8 +241,209 @@ visible = false
 texture = ExtResource("11_nqhsb")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SoundFX"
 
-[connection signal="pressed" from="VBoxContainer/One_player" to="." method="_on_one_player_pressed"]
-[connection signal="pressed" from="VBoxContainer/Two_players" to="." method="_on_two_players_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="CreditsUI" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CreditsBackButton" type="Button" parent="CreditsUI"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 88.0
+offset_bottom = 64.0
+focus_neighbor_bottom = NodePath("../RichTextLabel")
+focus_next = NodePath("../RichTextLabel")
+theme_override_styles/focus = ExtResource("9_jh10o")
+theme_override_styles/disabled_mirrored = ExtResource("9_jh10o")
+theme_override_styles/disabled = ExtResource("9_jh10o")
+theme_override_styles/hover_pressed_mirrored = ExtResource("9_jh10o")
+theme_override_styles/hover_pressed = ExtResource("9_jh10o")
+theme_override_styles/hover_mirrored = ExtResource("9_jh10o")
+theme_override_styles/hover = ExtResource("9_jh10o")
+theme_override_styles/pressed_mirrored = ExtResource("9_jh10o")
+theme_override_styles/pressed = ExtResource("9_jh10o")
+theme_override_styles/normal_mirrored = ExtResource("9_jh10o")
+theme_override_styles/normal = ExtResource("9_jh10o")
+text = "Back"
+alignment = 2
+script = ExtResource("10_hevcy")
+
+[node name="Sprite2D" type="Sprite2D" parent="CreditsUI/CreditsBackButton"]
+visible = false
+texture_repeat = 1
+position = Vector2(69, 17)
+texture = ExtResource("11_nqhsb")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsUI"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 110.0
+offset_right = 608.0
+offset_bottom = 330.0
+focus_neighbor_top = NodePath("../CreditsBackButton")
+focus_previous = NodePath("../CreditsBackButton")
+focus_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[b][i]Credits[/i][/b]
+[b]Published by[/b]
+FisherBit LLC.
+
+[b]All gameplay, programming, art, and sounds created by[/b]
+Alexander Fisher
+
+[b]Other credits[/b]
+First and foremost, thank you to the creators and contributors of the Godot Engine, which is the free and open-source game engine that this game was created with.
+
+I also give thanks to Roberto Mocci for allowing licensed usage of this font, named \"Medodica\", which is used throughout this game.
+
+[b][i]
+Licenses[/i][/b]
+[b]Godot Engine (godotengine.org/license)[/b]
+This game uses Godot Engine, available under the following license:
+
+Copyright (c) 2014-present Godot Engine contributors.
+Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+[b]Medodica Font[/b]
+Copyright (c) 2024, Roberto Mocci (< postocarattere@gmail.com | https://patreon.com/rmocci >),
+with Reserved Font Name Medodica.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+\"Font Software\" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+\"Reserved Font Name\" refers to any names specified as such after the
+copyright statement(s).
+
+\"Original Version\" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+\"Modified Version\" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+\"Author\" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE."
+script = ExtResource("13_6w4kg")
+
+[connection signal="pressed" from="MenuOptions/MainOptions/Singleplayer" to="." method="_on_one_player_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Multiplayer" to="." method="_on_two_players_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Quit" to="." method="_on_quit_pressed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingsBack" to="MenuOptions/SettingsOptions/SettingsBack" method="_on_focus_entered"]
+[connection signal="focus_exited" from="MenuOptions/SettingsOptions/SettingsBack" to="MenuOptions/SettingsOptions/SettingsBack" method="_on_focus_exited"]
+[connection signal="pressed" from="MenuOptions/SettingsOptions/SettingsBack" to="." method="_on_settings_back_pressed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider" to="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider" method="_on_focus_entered"]
+[connection signal="value_changed" from="MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider" to="." method="_on_master_volume_value_changed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider" to="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider" method="_on_focus_entered"]
+[connection signal="value_changed" from="MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider" to="." method="_on_soundfx_volume_value_changed"]
+[connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider" to="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider" method="_on_focus_entered"]
+[connection signal="value_changed" from="MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider" to="." method="_on_music_volume_value_changed"]
+[connection signal="focus_entered" from="CreditsUI/CreditsBackButton" to="CreditsUI/CreditsBackButton" method="_on_focus_entered"]
+[connection signal="focus_exited" from="CreditsUI/CreditsBackButton" to="CreditsUI/CreditsBackButton" method="_on_focus_exited"]
+[connection signal="pressed" from="CreditsUI/CreditsBackButton" to="." method="_on_credits_back_button_pressed"]
+[connection signal="focus_entered" from="CreditsUI/RichTextLabel" to="CreditsUI/RichTextLabel" method="_on_focus_entered"]
+[connection signal="focus_exited" from="CreditsUI/RichTextLabel" to="CreditsUI/RichTextLabel" method="_on_focus_exited"]

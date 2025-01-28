@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1ab3udiepd3p"]
+[gd_scene load_steps=13 format=3 uid="uid://d1ab3udiepd3p"]
 
 [ext_resource type="Shader" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.gdshader" id="1_7n1m3"]
 [ext_resource type="Script" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.gd" id="1_kt3cu"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_q7jim"]
 [ext_resource type="Theme" uid="uid://cnuxac3ofl1b7" path="res://Scenes/MainMenu/main_menu_theme.tres" id="2_mgirp"]
 [ext_resource type="Texture2D" uid="uid://dd3s3lfw35bmb" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Checked_12x12.png" id="3_6lvlx"]
 [ext_resource type="Texture2D" uid="uid://c515aircb210y" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Unchecked_12x12.png" id="4_ocmml"]
@@ -127,18 +128,20 @@ _data = {
 }
 
 [node name="WinScreen" type="Control" node_paths=PackedStringArray("player_1_checkbox", "player_2_checkbox", "checkbox_container", "player_1_wins", "player_2_wins")]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_q7jim")
 script = ExtResource("1_kt3cu")
 unchecked_box = ExtResource("4_ocmml")
 checked_box = ExtResource("3_6lvlx")
-player_1_checkbox = NodePath("MarginContainer/VBoxContainer/CheckboxContainer/Player_1_Checkbox")
-player_2_checkbox = NodePath("MarginContainer/VBoxContainer/CheckboxContainer/Player_2_Checkbox")
-checkbox_container = NodePath("MarginContainer/VBoxContainer/CheckboxContainer")
+player_1_checkbox = NodePath("MarginContainer/VBoxContainer/HBox_Controls/CheckboxContainer/Player_1_Checkbox")
+player_2_checkbox = NodePath("MarginContainer/VBoxContainer/HBox_Controls/CheckboxContainer/Player_2_Checkbox")
+checkbox_container = NodePath("MarginContainer/VBoxContainer/HBox_Controls/CheckboxContainer")
 player_1_wins = NodePath("VBoxContainer/HBoxContainer/BlueWins")
 player_2_wins = NodePath("VBoxContainer/HBoxContainer/RedWins")
 
@@ -172,7 +175,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 0
-theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -183,19 +185,16 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0.392157, 1, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 25
 text = "0"
 
 [node name="Dash" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
 text = "-"
 
 [node name="RedWins" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 25
 text = "0"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -220,25 +219,27 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="HBox_Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Press 'serve' to play a rematch. Press 'escape' to quit."
-horizontal_alignment = 1
+size_flags_vertical = 8
+alignment = 1
 
-[node name="CheckboxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="CheckboxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBox_Controls"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 8
+alignment = 2
 
-[node name="Player_1_Checkbox" type="TextureRect" parent="MarginContainer/VBoxContainer/CheckboxContainer"]
+[node name="Player_1_Checkbox" type="TextureRect" parent="MarginContainer/VBoxContainer/HBox_Controls/CheckboxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 8
 texture = ExtResource("4_ocmml")
 stretch_mode = 2
 
-[node name="Player_2_Checkbox" type="TextureRect" parent="MarginContainer/VBoxContainer/CheckboxContainer"]
+[node name="Player_2_Checkbox" type="TextureRect" parent="MarginContainer/VBoxContainer/HBox_Controls/CheckboxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 8
 texture = ExtResource("4_ocmml")
 stretch_mode = 2
