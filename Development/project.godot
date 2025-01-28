@@ -41,6 +41,10 @@ window/stretch/mode="viewport"
 
 p1_joypad_glyphs=""
 p1_keyboard_glyphs=""
+p2_keyboard_glyphs=""
+p2_joypad_glyphs=""
+rematch_controls=""
+quit_controls=""
 
 [input]
 

@@ -43,14 +43,15 @@ shader = SubResource("Shader_jsamj")
 shader_parameter/threshold = 1.0
 shader_parameter/color = Color(1, 1, 1, 1)
 
-[node name="Game" type="Node" node_paths=PackedStringArray("score_label_blue", "score_label_red", "ui_controls", "ui_player2_controls", "ui_game_paused", "win_screen", "blue_player", "audio_player")]
+[node name="Game" type="Node" node_paths=PackedStringArray("score_label_blue", "score_label_red", "ui_controls", "ui_player1_controls", "ui_player2_controls", "ui_game_paused", "win_screen", "blue_player", "audio_player")]
 script = ExtResource("1_o4wpn")
 score_label_blue = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Blue")
 score_label_red = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Red")
-ui_controls = NodePath("UI/MarginContainer2")
-ui_player2_controls = NodePath("UI/MarginContainer2/HBox_Controls/PlayerTwoControls")
+ui_controls = NodePath("UI/UI_Controls")
+ui_player1_controls = NodePath("UI/UI_Controls/PlayerOneControls")
+ui_player2_controls = NodePath("UI/UI_Controls/PlayerTwoControls")
 ui_game_paused = NodePath("UI/PauseScreen")
-win_screen = NodePath("WinScreen")
+win_screen = NodePath("UI/WinScreen")
 blue_player = NodePath("GameEnvironment/Paddle_Blue")
 RedAiPaddle = ExtResource("2_2ndue")
 RedPlayerPaddle = ExtResource("3_dn3lx")
@@ -178,32 +179,11 @@ layout_mode = 2
 text = "Game is paused!"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/PauseScreen/VBoxContainer"]
-layout_mode = 2
-alignment = 1
+[node name="WinScreen" parent="UI" instance=ExtResource("10_k6tjv")]
+visible = false
+layout_mode = 1
 
-[node name="Press" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Press"
-horizontal_alignment = 1
-
-[node name="KeyboardControl" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer" groups=["p1_keyboard_glyphs"]]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "'Backspace'"
-
-[node name="GamepadControl" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer" groups=["p1_joypad_glyphs"]]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "'Select'"
-
-[node name="to quit" type="Label" parent="UI/PauseScreen/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "to quit."
-
-[node name="MarginContainer2" type="MarginContainer" parent="UI"]
+[node name="UI_Controls" type="MarginContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -213,106 +193,261 @@ grow_vertical = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_bottom = 16
 
-[node name="HBox_Controls" type="HBoxContainer" parent="UI/MarginContainer2"]
+[node name="PlayerOneControls" type="VBoxContainer" parent="UI/UI_Controls"]
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 8
-alignment = 1
 
-[node name="PlayerOneControls2" type="VBoxContainer" parent="UI/MarginContainer2/HBox_Controls"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="UpControl" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+[node name="UpControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerOneControls"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/UpControl"]
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerOneControls/UpControl"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Up:"
 
-[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/UpControl" groups=["p1_keyboard_glyphs"]]
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/UpControl" groups=["p1_keyboard_glyphs"]]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "W"
 
-[node name="GamepadControl" type="TextureRect" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/UpControl" groups=["p1_joypad_glyphs"]]
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/UpControl" groups=["p1_joypad_glyphs"]]
 layout_mode = 2
 texture = ExtResource("11_uadwp")
 
-[node name="DownControl2" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+[node name="DownControl2" type="HBoxContainer" parent="UI/UI_Controls/PlayerOneControls"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/DownControl2"]
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerOneControls/DownControl2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Down:"
 
-[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/DownControl2" groups=["p1_keyboard_glyphs"]]
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/DownControl2" groups=["p1_keyboard_glyphs"]]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "D"
 
-[node name="GamepadControl" type="TextureRect" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/DownControl2" groups=["p1_joypad_glyphs"]]
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/DownControl2" groups=["p1_joypad_glyphs"]]
 layout_mode = 2
 texture = ExtResource("12_3cotr")
 
-[node name="ServeControl2" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+[node name="ServeControl2" type="HBoxContainer" parent="UI/UI_Controls/PlayerOneControls"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/ServeControl2"]
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerOneControls/ServeControl2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Serve:"
 
-[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/ServeControl2" groups=["p1_keyboard_glyphs"]]
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/ServeControl2" groups=["p1_keyboard_glyphs"]]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Space"
 
-[node name="GamepadControl" type="TextureRect" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/ServeControl2" groups=["p1_joypad_glyphs"]]
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/ServeControl2" groups=["p1_joypad_glyphs"]]
 layout_mode = 2
 texture = ExtResource("13_4g0ff")
 
-[node name="PauseControl" type="HBoxContainer" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2"]
+[node name="PauseControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerOneControls"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="FunctionLabel" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/PauseControl"]
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerOneControls/PauseControl"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Pause:"
 
-[node name="KeyboardControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/PauseControl" groups=["p1_keyboard_glyphs"]]
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/PauseControl" groups=["p1_keyboard_glyphs"]]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Esc"
 
-[node name="GamepadControl" type="Label" parent="UI/MarginContainer2/HBox_Controls/PlayerOneControls2/PauseControl" groups=["p1_joypad_glyphs"]]
+[node name="GamepadControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/PauseControl" groups=["p1_joypad_glyphs"]]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Start"
 
-[node name="PlayerTwoControls" type="Label" parent="UI/MarginContainer2/HBox_Controls"]
+[node name="RematchControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerOneControls" groups=["rematch_controls"]]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
-text = "Up Arrow: Up
-Down Arrow: Down
-Keypad Enter: Serve"
-horizontal_alignment = 2
+size_flags_horizontal = 0
 
-[node name="WinScreen" parent="." instance=ExtResource("10_k6tjv")]
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerOneControls/RematchControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Rematch:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/RematchControl" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Space"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/RematchControl" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("13_4g0ff")
+
+[node name="QuitControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerOneControls" groups=["quit_controls"]]
 visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerOneControls/QuitControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Quit:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/QuitControl" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Backspace"
+
+[node name="GamepadControl" type="Label" parent="UI/UI_Controls/PlayerOneControls/QuitControl" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Select"
+
+[node name="PlayerTwoControls" type="VBoxContainer" parent="UI/UI_Controls"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="UpControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerTwoControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/UpControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Up:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/UpControl" groups=["p2_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Up Arrow"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/UpControl" groups=["p2_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("11_uadwp")
+
+[node name="DownControl2" type="HBoxContainer" parent="UI/UI_Controls/PlayerTwoControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/DownControl2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Down:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/DownControl2" groups=["p2_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Down Arrow"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/DownControl2" groups=["p2_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("12_3cotr")
+
+[node name="ServeControl2" type="HBoxContainer" parent="UI/UI_Controls/PlayerTwoControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/ServeControl2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Serve:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/ServeControl2" groups=["p2_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Enter"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/ServeControl2" groups=["p2_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("13_4g0ff")
+
+[node name="PauseControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerTwoControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/PauseControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Pause:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/PauseControl" groups=["p2_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Esc"
+
+[node name="GamepadControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/PauseControl" groups=["p2_joypad_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Start"
+
+[node name="RematchControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerTwoControls" groups=["rematch_controls"]]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/RematchControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Rematch:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/RematchControl" groups=["p2_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Enter"
+
+[node name="GamepadControl" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/RematchControl" groups=["p2_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("13_4g0ff")
+
+[node name="QuitControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerTwoControls" groups=["quit_controls"]]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/QuitControl"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Quit:"
+
+[node name="KeyboardControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/QuitControl" groups=["p2_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Backspace"
+
+[node name="GamepadControl" type="Label" parent="UI/UI_Controls/PlayerTwoControls/QuitControl" groups=["p2_joypad_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Select"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 bus = &"SoundFX"
