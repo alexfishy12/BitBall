@@ -3,6 +3,7 @@ extends Node
 @export var score_label_blue: Label
 @export var score_label_red: Label
 @export var ui_controls: Control
+@export var ui_player1_controls: Control
 @export var ui_player2_controls: Control
 @export var ui_game_paused: Control
 @export var win_screen: Control
@@ -66,6 +67,14 @@ func end_game(winning_player: String):
 	
 	win_screen.update_win_label()
 	win_screen.show()
+	for control in ui_player1_controls.get_children():
+		control.hide()
+	for control in ui_player2_controls.get_children():
+		control.hide()
+	
+	get_tree().call_group("rematch_controls", "show")
+	get_tree().call_group("quit_controls", "show")
+	ui_controls.show()
 	
 func _input(event):
 	if game_ended:
@@ -75,7 +84,7 @@ func _input(event):
 		if event.is_action_pressed("player2_serve"):
 			win_screen.check_player_2()
 			player_2_wants_to_replay = true
-		if event.is_action_pressed("escape"):
+		if event.is_action_pressed("quit_game"):
 			Singleton.leave_game()
 		if player_1_wants_to_replay and player_2_wants_to_replay:
 			reset_game()
@@ -86,13 +95,14 @@ func _input(event):
 		and ui_controls.visible and not Singleton.game_is_paused and not blue_player.just_spawned:
 			ui_controls.hide()
 	if Singleton.is_game_paused():
-		if event.is_action_pressed('backspace'):
+		if event.is_action_pressed('quit_game'):
 			Singleton.leave_game()
 			
 func pause_game():
 	Singleton.toggle_pause()
 	
 	if Singleton.is_game_paused():
+		get_tree().call_group("quit_controls", "show")
 		ui_controls.show()
 		ui_game_paused.show()
 	else:

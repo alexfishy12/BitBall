@@ -94,7 +94,7 @@ func _on_two_players_pressed():
 		setup_animation_ball("two_players")
 		game_type = "two_player"
 
-func _on_options_pressed():
+func _on_settings_pressed():
 	settings_back.grab_focus()
 	main_options.hide()
 	settings_options.show()

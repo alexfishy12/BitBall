@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5lpbyehh2wsy"]
+[gd_scene load_steps=16 format=3 uid="uid://c5lpbyehh2wsy"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_bcqhp"]
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_tmyp6"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scenes/MainMenu/Button_With_Selector.gd" id="10_hevcy"]
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="10_l1uv6"]
 [ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Entities/Ball/Ball_12x12.png" id="11_nqhsb"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/rich_text_label.gd" id="13_6w4kg"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_feluc"]
 
@@ -34,7 +35,7 @@ title = NodePath("Title")
 game_environment = NodePath("Game_Environment")
 one_player_button = NodePath("MenuOptions/MainOptions/Singleplayer")
 two_players_button = NodePath("MenuOptions/MainOptions/Multiplayer")
-options_button = NodePath("MenuOptions/MainOptions/Options")
+options_button = NodePath("MenuOptions/MainOptions/Settings")
 settings_back = NodePath("MenuOptions/SettingsOptions/SettingsBack")
 quit_button = NodePath("MenuOptions/MainOptions/Quit")
 ball_sprite = NodePath("Ball_Sprite")
@@ -100,10 +101,10 @@ layout_mode = 2
 theme = null
 text = "Multiplayer"
 
-[node name="Options" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
+[node name="Settings" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
 layout_mode = 2
 theme = null
-text = "Options"
+text = "Settings"
 
 [node name="Credits" parent="MenuOptions/MainOptions" instance=ExtResource("9_d2ted")]
 layout_mode = 2
@@ -257,6 +258,8 @@ offset_left = 32.0
 offset_top = 32.0
 offset_right = 88.0
 offset_bottom = 64.0
+focus_neighbor_bottom = NodePath("../RichTextLabel")
+focus_next = NodePath("../RichTextLabel")
 theme_override_styles/focus = ExtResource("9_jh10o")
 theme_override_styles/disabled_mirrored = ExtResource("9_jh10o")
 theme_override_styles/disabled = ExtResource("9_jh10o")
@@ -284,15 +287,17 @@ offset_left = 32.0
 offset_top = 110.0
 offset_right = 608.0
 offset_bottom = 330.0
+focus_neighbor_top = NodePath("../CreditsBackButton")
+focus_previous = NodePath("../CreditsBackButton")
 focus_mode = 2
 theme_override_font_sizes/bold_italics_font_size = 48
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[b][i]Credits[/i][/b]
 [b]Published by[/b]
-FisherTech LLC.
+FisherBit LLC.
 
-[b]All gameplay, art, and sounds created by[/b]
+[b]All gameplay, programming, art, and sounds created by[/b]
 Alexander Fisher
 
 [b]Other credits[/b]
@@ -421,10 +426,11 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE."
+script = ExtResource("13_6w4kg")
 
 [connection signal="pressed" from="MenuOptions/MainOptions/Singleplayer" to="." method="_on_one_player_pressed"]
 [connection signal="pressed" from="MenuOptions/MainOptions/Multiplayer" to="." method="_on_two_players_pressed"]
-[connection signal="pressed" from="MenuOptions/MainOptions/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MenuOptions/MainOptions/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MenuOptions/MainOptions/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MenuOptions/MainOptions/Quit" to="." method="_on_quit_pressed"]
 [connection signal="focus_entered" from="MenuOptions/SettingsOptions/SettingsBack" to="MenuOptions/SettingsOptions/SettingsBack" method="_on_focus_entered"]
@@ -439,3 +445,5 @@ OTHER DEALINGS IN THE FONT SOFTWARE."
 [connection signal="focus_entered" from="CreditsUI/CreditsBackButton" to="CreditsUI/CreditsBackButton" method="_on_focus_entered"]
 [connection signal="focus_exited" from="CreditsUI/CreditsBackButton" to="CreditsUI/CreditsBackButton" method="_on_focus_exited"]
 [connection signal="pressed" from="CreditsUI/CreditsBackButton" to="." method="_on_credits_back_button_pressed"]
+[connection signal="focus_entered" from="CreditsUI/RichTextLabel" to="CreditsUI/RichTextLabel" method="_on_focus_entered"]
+[connection signal="focus_exited" from="CreditsUI/RichTextLabel" to="CreditsUI/RichTextLabel" method="_on_focus_exited"]
