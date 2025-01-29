@@ -17,6 +17,10 @@ extends Control
 @export var credits_button: Control
 @export var credits_back_button: Control
 
+@export_category("PlayerSelect")
+@export var DetectedControllerScene: PackedScene
+@export var player_select_ui: Control
+
 @export_category("Audio Controls")
 @export var master_volume_value_label: Label
 @export var master_volume_slider: HSlider
@@ -42,6 +46,7 @@ func _ready():
 	set_volume_sliders_to_saved_values()
 	one_player_button.grab_focus()
 	Events.connect("button_focused", button_focused)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -88,11 +93,15 @@ func _on_one_player_pressed():
 		game_type = "one_player"
 
 func _on_two_players_pressed():
-	if not ball_should_move:
-		audio_player.set_stream(select_sound)
-		audio_player.play()
-		setup_animation_ball("two_players")
-		game_type = "two_player"
+	player_select_ui.show()
+	main_options.hide()
+	get_joypads()
+	
+	#if not ball_should_move:
+		#audio_player.set_stream(select_sound)
+		#audio_player.play()
+		#setup_animation_ball("two_players")
+		#game_type = "two_player"
 
 func _on_settings_pressed():
 	settings_back.grab_focus()
@@ -151,3 +160,24 @@ func db_to_volume(db: float) -> float:
 	if db <= -INF:
 		return 0.0
 	return 100.0 * pow(10.0, db / 20.0)
+	
+	
+############################
+### CONTROLLER DETECTION ###
+############################
+
+func get_joypads():
+	var connected_joypads : Array[int] = Input.get_connected_joypads()
+	print("Connected Joypads: " + str(connected_joypads))
+	for joypad in connected_joypads:
+		print("Is joypad known: " + str(Input.is_joy_known(joypad)))
+		print("Joypad name: " + str(Input.get_joy_name(joypad)))
+		if Input.is_joy_known(joypad):
+			var detected_controller = DetectedControllerScene.instantiate()
+			detected_controller.device = joypad
+			detected_controller.device_name = Input.get_joy_name(joypad)
+			detected_controller.player_selected.connect(Callable(self, "player_selected"))
+			add_child(detected_controller)
+			
+func player_selected(player: String):
+	print("Player " + player + " selected!")
