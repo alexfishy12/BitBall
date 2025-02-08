@@ -1,29 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://deb1mftucur8n"]
+[gd_scene load_steps=8 format=3 uid="uid://deb1mftucur8n"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/detected_controller.gd" id="1_5qye4"]
 [ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="2_mkdk7"]
+[ext_resource type="Shader" path="res://Scenes/MainMenu/PlayerSelection/transparent.gdshader" id="3_aynh5"]
 [ext_resource type="Texture2D" uid="uid://b3u27jp4shgo5" path="res://Scenes/MainMenu/PlayerSelection/Glyph_Controller.png" id="3_mqtxm"]
 [ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="4_awgst"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="5_2x4ix"]
 
-[node name="DetectedController" type="VBoxContainer"]
-offset_left = 264.0
-offset_top = 157.0
-offset_right = 354.0
-offset_bottom = 222.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xuly"]
+shader = ExtResource("3_aynh5")
+
+[node name="DetectedController" type="VBoxContainer" groups=["detected_controllers"]]
+offset_right = 90.0
+offset_bottom = 58.0
+pivot_offset = Vector2(45, 29)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 script = ExtResource("1_5qye4")
+device_glyph = ExtResource("3_mqtxm")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 7
+alignment = 1
 
 [node name="BlueArrowLeft" type="TextureRect" parent="HBoxContainer"]
+material = SubResource("ShaderMaterial_3xuly")
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("2_mkdk7")
 stretch_mode = 4
+
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="ControllerGlyph" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
@@ -32,9 +46,15 @@ size_flags_vertical = 4
 texture = ExtResource("3_mqtxm")
 stretch_mode = 4
 
-[node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("4_awgst")
 stretch_mode = 4
@@ -42,6 +62,7 @@ stretch_mode = 4
 [node name="ControllerName" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("5_2x4ix")
 theme_override_font_sizes/font_size = 16
 text = "Controller"
 horizontal_alignment = 1

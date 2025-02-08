@@ -45,6 +45,7 @@ p2_keyboard_glyphs=""
 p2_joypad_glyphs=""
 rematch_controls=""
 quit_controls=""
+detected_controllers=""
 
 [input]
 
@@ -170,3 +171,4 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+2d/max_physics_steps_per_frame=8

@@ -1,0 +1,199 @@
+[gd_scene load_steps=10 format=3 uid="uid://dabrv8eiac7f0"]
+
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_028wm"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/player_select_ui.gd" id="1_kd81l"]
+[ext_resource type="PackedScene" uid="uid://deb1mftucur8n" path="res://Scenes/MainMenu/PlayerSelection/detected_controller.tscn" id="2_5uvc0"]
+[ext_resource type="Texture2D" uid="uid://c515aircb210y" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Unchecked_12x12.png" id="2_ovrb3"]
+[ext_resource type="Texture2D" uid="uid://dd3s3lfw35bmb" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Checked_12x12.png" id="3_4awjy"]
+[ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Scenes/MainMenu/MainMenuBG.png" id="3_dm0th"]
+[ext_resource type="Texture2D" uid="uid://w50mifict0tq" path="res://Scenes/Gameplay/UI/GamepadGlyphs/Glyph_ButtonBottom.png" id="4_p8wx0"]
+[ext_resource type="Texture2D" uid="uid://g0gag6eh4gaf" path="res://Scenes/MainMenu/PlayerSelection/Glyph_WASD.png" id="6_nkk0r"]
+[ext_resource type="Texture2D" uid="uid://d0vacohpttvns" path="res://Scenes/MainMenu/PlayerSelection/Glyph_ArrowKeys.png" id="8_4pvpp"]
+
+[node name="PlayerSelectUI" type="Control" node_paths=PackedStringArray("available_controller_schemes_area", "available_controller_schemes_zone", "player1_area", "player1_scheme_zone", "player2_area", "player2_scheme_zone")]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_028wm")
+script = ExtResource("1_kd81l")
+DetectedControllerScene = ExtResource("2_5uvc0")
+available_controller_schemes_area = NodePath("MarginContainer/VBoxContainer/HBoxContainer/AvailableControllerSchemesArea")
+available_controller_schemes_zone = NodePath("MarginContainer/VBoxContainer/HBoxContainer/AvailableControllerSchemesArea/SchemeZone")
+player1_area = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Player1Area")
+player1_scheme_zone = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Player1Area/SchemeZone")
+player2_area = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Player2Area")
+player2_scheme_zone = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Player2Area/SchemeZone")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dm0th")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0.392157, 1, 1)
+theme_override_constants/outline_size = 6
+text = "PLAYER SELECT"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Player1Area" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Select Player 1" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Player1Area"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0.392157, 1, 1)
+theme_override_constants/outline_size = 5
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SchemeZone" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Player1Area"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+expand_mode = 1
+
+[node name="AvailableControllerSchemesArea" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="WASD" parent="MarginContainer/VBoxContainer/HBoxContainer/AvailableControllerSchemesArea" instance=ExtResource("2_5uvc0")]
+layout_mode = 2
+device = 100
+device_name = "WASD"
+device_glyph = ExtResource("6_nkk0r")
+
+[node name="ArrowKeys" parent="MarginContainer/VBoxContainer/HBoxContainer/AvailableControllerSchemesArea" instance=ExtResource("2_5uvc0")]
+layout_mode = 2
+device = 101
+device_name = "Arrow Keys"
+device_glyph = ExtResource("8_4pvpp")
+
+[node name="SchemeZone" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/AvailableControllerSchemesArea"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+expand_mode = 1
+
+[node name="Player2Area" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Select Player 2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Player2Area"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "Player 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SchemeZone" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/Player2Area"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+
+[node name="UI_Controls" type="MarginContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="PlayerOneControls" type="VBoxContainer" parent="MarginContainer/UI_Controls"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="CheckboxUnchecked" type="TextureRect" parent="MarginContainer/UI_Controls/PlayerOneControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("2_ovrb3")
+stretch_mode = 4
+
+[node name="CheckboxChecked" type="TextureRect" parent="MarginContainer/UI_Controls/PlayerOneControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("3_4awjy")
+stretch_mode = 4
+
+[node name="ServeControl2" type="HBoxContainer" parent="MarginContainer/UI_Controls/PlayerOneControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="FunctionLabel" type="Label" parent="MarginContainer/UI_Controls/PlayerOneControls/ServeControl2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Ready up:"
+
+[node name="KeyboardControl" type="Label" parent="MarginContainer/UI_Controls/PlayerOneControls/ServeControl2" groups=["p1_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Space"
+
+[node name="GamepadControl" type="TextureRect" parent="MarginContainer/UI_Controls/PlayerOneControls/ServeControl2" groups=["p1_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("4_p8wx0")
+
+[node name="PlayerTwoControls" type="VBoxContainer" parent="MarginContainer/UI_Controls"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="CheckboxUnchecked" type="TextureRect" parent="MarginContainer/UI_Controls/PlayerTwoControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("2_ovrb3")
+stretch_mode = 4
+
+[node name="CheckboxChecked" type="TextureRect" parent="MarginContainer/UI_Controls/PlayerTwoControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("3_4awjy")
+stretch_mode = 4
+
+[node name="ServeControl2" type="HBoxContainer" parent="MarginContainer/UI_Controls/PlayerTwoControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="FunctionLabel" type="Label" parent="MarginContainer/UI_Controls/PlayerTwoControls/ServeControl2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Ready up:"
+
+[node name="KeyboardControl" type="Label" parent="MarginContainer/UI_Controls/PlayerTwoControls/ServeControl2" groups=["p2_keyboard_glyphs"]]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Enter"
+
+[node name="GamepadControl" type="TextureRect" parent="MarginContainer/UI_Controls/PlayerTwoControls/ServeControl2" groups=["p2_joypad_glyphs"]]
+layout_mode = 2
+texture = ExtResource("4_p8wx0")

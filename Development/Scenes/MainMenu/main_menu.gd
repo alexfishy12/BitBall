@@ -95,7 +95,7 @@ func _on_one_player_pressed():
 func _on_two_players_pressed():
 	player_select_ui.show()
 	main_options.hide()
-	get_joypads()
+	player_select_ui.get_joypads()
 	
 	#if not ball_should_move:
 		#audio_player.set_stream(select_sound)
@@ -160,24 +160,3 @@ func db_to_volume(db: float) -> float:
 	if db <= -INF:
 		return 0.0
 	return 100.0 * pow(10.0, db / 20.0)
-	
-	
-############################
-### CONTROLLER DETECTION ###
-############################
-
-func get_joypads():
-	var connected_joypads : Array[int] = Input.get_connected_joypads()
-	print("Connected Joypads: " + str(connected_joypads))
-	for joypad in connected_joypads:
-		print("Is joypad known: " + str(Input.is_joy_known(joypad)))
-		print("Joypad name: " + str(Input.get_joy_name(joypad)))
-		if Input.is_joy_known(joypad):
-			var detected_controller = DetectedControllerScene.instantiate()
-			detected_controller.device = joypad
-			detected_controller.device_name = Input.get_joy_name(joypad)
-			detected_controller.player_selected.connect(Callable(self, "player_selected"))
-			add_child(detected_controller)
-			
-func player_selected(player: String):
-	print("Player " + player + " selected!")

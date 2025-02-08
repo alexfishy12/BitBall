@@ -17,7 +17,6 @@ var game_is_paused: bool = false
 
 func _ready():
 	AudioServer.set_bus_layout(audio_bus_layout)
-	
 	print_joypad_information()
 	
 func print_joypad_information():
@@ -28,7 +27,8 @@ func print_joypad_information():
 		print("Joypad name: " + str(Input.get_joy_name(joypad)))
 
 func _input(event):
-	update_controls_ui(event)
+	update_controls_ui(event)	
+	
 	
 # function used to update game controls ui
 func update_controls_ui(event):

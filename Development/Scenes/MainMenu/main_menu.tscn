@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c5lpbyehh2wsy"]
+[gd_scene load_steps=18 format=3 uid="uid://c5lpbyehh2wsy"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_bcqhp"]
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_tmyp6"]
@@ -13,16 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="10_l1uv6"]
 [ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Entities/Ball/Ball_12x12.png" id="11_nqhsb"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/rich_text_label.gd" id="13_6w4kg"]
-[ext_resource type="Texture2D" uid="uid://c515aircb210y" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Unchecked_12x12.png" id="14_kt5m0"]
-[ext_resource type="Texture2D" uid="uid://dd3s3lfw35bmb" path="res://Scenes/Gameplay/UI/WinScreen/Checkbox_Checked_12x12.png" id="15_dvsig"]
-[ext_resource type="Texture2D" uid="uid://w50mifict0tq" path="res://Scenes/Gameplay/UI/GamepadGlyphs/Glyph_ButtonBottom.png" id="16_7h8dx"]
+[ext_resource type="PackedScene" uid="uid://dabrv8eiac7f0" path="res://player_select_ui.tscn" id="15_dhe1m"]
 [ext_resource type="PackedScene" uid="uid://deb1mftucur8n" path="res://Scenes/MainMenu/PlayerSelection/detected_controller.tscn" id="17_3krbv"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_feluc"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_weedt"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("menu_options", "main_options", "settings_options", "title", "game_environment", "one_player_button", "two_players_button", "options_button", "settings_back", "quit_button", "ball_sprite", "audio_player", "credits_ui", "credits_button", "credits_back_button", "player_select_ui", "master_volume_value_label", "master_volume_slider", "soundfx_volume_value_label", "soundfx_volume_slider", "music_volume_value_label", "music_volume_slider")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("menu_options", "main_options", "settings_options", "title", "game_environment", "one_player_button", "two_players_button", "options_button", "settings_back", "quit_button", "ball_sprite", "audio_player", "credits_ui", "credits_button", "credits_back_button", "master_volume_value_label", "master_volume_slider", "soundfx_volume_value_label", "soundfx_volume_slider", "music_volume_value_label", "music_volume_slider")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -48,7 +46,6 @@ credits_ui = NodePath("CreditsUI")
 credits_button = NodePath("MenuOptions/MainOptions/Credits")
 credits_back_button = NodePath("CreditsUI/CreditsBackButton")
 DetectedControllerScene = ExtResource("17_3krbv")
-player_select_ui = NodePath("PlayerSelectUI")
 master_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/MasterVolumeValueLabel")
 master_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider")
 soundfx_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/SoundFXVolumeValueLabel")
@@ -58,8 +55,6 @@ music_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox3/HBoxCon
 focus_sound = ExtResource("2_cjvl6")
 select_sound = ExtResource("3_x0wul")
 transition_time = 3.0
-metadata/_edit_horizontal_guides_ = [32.0, 328.0, 221.0]
-metadata/_edit_vertical_guides_ = [608.0, 32.0]
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -93,6 +88,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="MainOptions" type="VBoxContainer" parent="MenuOptions"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 
@@ -434,136 +430,8 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE."
 script = ExtResource("13_6w4kg")
 
-[node name="PlayerSelectUI" type="Control" parent="."]
-visible = false
+[node name="PlayerSelectUI" parent="." instance=ExtResource("15_dhe1m")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerSelectUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 150
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 16
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerSelectUI/MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Player1Area" type="VBoxContainer" parent="PlayerSelectUI/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="Select Player 1" type="Label" parent="PlayerSelectUI/MarginContainer/HBoxContainer/Player1Area"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_outline_color = Color(0, 0.392157, 1, 1)
-theme_override_constants/outline_size = 5
-text = "Player 1"
-
-[node name="Player2Area" type="VBoxContainer" parent="PlayerSelectUI/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="Select Player 2" type="Label" parent="PlayerSelectUI/MarginContainer/HBoxContainer/Player2Area"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
-theme_override_constants/outline_size = 5
-text = "Player 2"
-
-[node name="UI_Controls" type="MarginContainer" parent="PlayerSelectUI/MarginContainer"]
-layout_mode = 2
-
-[node name="PlayerOneControls" type="VBoxContainer" parent="PlayerSelectUI/MarginContainer/UI_Controls"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-
-[node name="CheckboxUnchecked" type="TextureRect" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerOneControls"]
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("14_kt5m0")
-stretch_mode = 4
-
-[node name="CheckboxChecked" type="TextureRect" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerOneControls"]
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("15_dvsig")
-stretch_mode = 4
-
-[node name="ServeControl2" type="HBoxContainer" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerOneControls"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="FunctionLabel" type="Label" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerOneControls/ServeControl2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 15
-text = "Ready up:"
-
-[node name="KeyboardControl" type="Label" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerOneControls/ServeControl2" groups=["p1_keyboard_glyphs"]]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Space"
-
-[node name="GamepadControl" type="TextureRect" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerOneControls/ServeControl2" groups=["p1_joypad_glyphs"]]
-layout_mode = 2
-texture = ExtResource("16_7h8dx")
-
-[node name="PlayerTwoControls" type="VBoxContainer" parent="PlayerSelectUI/MarginContainer/UI_Controls"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-alignment = 2
-
-[node name="CheckboxUnchecked" type="TextureRect" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerTwoControls"]
-layout_mode = 2
-size_flags_horizontal = 8
-texture = ExtResource("14_kt5m0")
-stretch_mode = 4
-
-[node name="CheckboxChecked" type="TextureRect" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerTwoControls"]
-layout_mode = 2
-size_flags_horizontal = 8
-texture = ExtResource("15_dvsig")
-stretch_mode = 4
-
-[node name="ServeControl2" type="HBoxContainer" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerTwoControls"]
-layout_mode = 2
-size_flags_horizontal = 8
-alignment = 2
-
-[node name="FunctionLabel" type="Label" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerTwoControls/ServeControl2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 15
-text = "Ready up:"
-
-[node name="KeyboardControl" type="Label" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerTwoControls/ServeControl2" groups=["p2_keyboard_glyphs"]]
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Enter"
-
-[node name="GamepadControl" type="TextureRect" parent="PlayerSelectUI/MarginContainer/UI_Controls/PlayerTwoControls/ServeControl2" groups=["p2_joypad_glyphs"]]
-layout_mode = 2
-texture = ExtResource("16_7h8dx")
-
-[node name="DetectedControllerZone" type="Control" parent="PlayerSelectUI"]
-anchors_preset = 0
-offset_left = 258.0
-offset_top = 159.0
-offset_right = 298.0
-offset_bottom = 199.0
 
 [connection signal="pressed" from="MenuOptions/MainOptions/Singleplayer" to="." method="_on_one_player_pressed"]
 [connection signal="pressed" from="MenuOptions/MainOptions/Multiplayer" to="." method="_on_two_players_pressed"]
