@@ -1,0 +1,78 @@
+[gd_scene load_steps=14 format=3 uid="uid://deb1mftucur8n"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.gd" id="1_4r6nr"]
+[ext_resource type="Texture2D" uid="uid://b3u27jp4shgo5" path="res://Scenes/MainMenu/PlayerSelection/Glyph_Controller.png" id="2_yhgau"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="3_e5xgm"]
+[ext_resource type="Shader" path="res://Scenes/MainMenu/PlayerSelection/transparent.gdshader" id="3_popkj"]
+[ext_resource type="Resource" uid="uid://c0bcu28l217xn" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/IM_JP_down.tres" id="4_ot2bf"]
+[ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="4_xqt46"]
+[ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="5_a1x2n"]
+[ext_resource type="Resource" uid="uid://cy850uxkwx32d" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/IM_JP_pause.tres" id="5_u0xbb"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="6_ios6i"]
+[ext_resource type="Resource" uid="uid://ff3mydka5naf" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/IM_JP_quit.tres" id="6_lt4qw"]
+[ext_resource type="Resource" uid="uid://btxrdydrkt362" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/IM_JP_serve.tres" id="7_vai0d"]
+[ext_resource type="Resource" uid="uid://dqgayq8n4ws4w" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/IM_JP_up.tres" id="8_mh17w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xuly"]
+shader = ExtResource("3_popkj")
+
+[node name="ControlScheme" type="VBoxContainer" groups=["detected_controllers"]]
+offset_right = 90.0
+offset_bottom = 58.0
+pivot_offset = Vector2(45, 29)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+script = ExtResource("1_4r6nr")
+is_joy = true
+device_glyph = ExtResource("2_yhgau")
+input_mappings = Array[ExtResource("3_e5xgm")]([ExtResource("4_ot2bf"), ExtResource("5_u0xbb"), ExtResource("6_lt4qw"), ExtResource("7_vai0d"), ExtResource("8_mh17w")])
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="BlueArrowLeft" type="TextureRect" parent="HBoxContainer"]
+material = SubResource("ShaderMaterial_3xuly")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("4_xqt46")
+stretch_mode = 4
+
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ControllerGlyph" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_yhgau")
+stretch_mode = 4
+
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("5_a1x2n")
+stretch_mode = 4
+
+[node name="ControllerName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ios6i")
+theme_override_font_sizes/font_size = 16
+text = "Controller"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

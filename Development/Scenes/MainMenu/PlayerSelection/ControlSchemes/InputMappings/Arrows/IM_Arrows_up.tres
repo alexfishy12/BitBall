@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://dbklgnys5ng6v"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_rtfpl"]
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_yktc3"]
+button_index = 11
+
+[resource]
+script = ExtResource("1_rtfpl")
+action_name = "up"
+controller_input = SubResource("InputEventJoypadButton_yktc3")

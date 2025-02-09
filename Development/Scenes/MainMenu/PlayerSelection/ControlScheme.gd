@@ -1,9 +1,12 @@
+class_name ControlScheme
 extends VBoxContainer
 
 @export var device : int
+@export var is_joy : bool
 @export var device_name : String = ""
 @export var device_glyph : Texture2D
 
+@export var input_mappings: Array[InputMapping] = []
 
 var current_state: int
 var parent_after_tween: Control
@@ -49,3 +52,25 @@ func display_arrow(player: String, display: bool):
 		elif !display:
 			$HBoxContainer/RedArrowRight.hide()
 			$HBoxContainer/RightSpacer.show()
+			
+func map_scheme(player: String):
+	# make sure player string is properly formatted
+	assert(player == "player1" or player == "player2", "Invalid player being mapped.")
+	print("Mapping joy device " + str(device) + " to " + player + ".")
+	
+	# map actions
+	for mapping in input_mappings:
+		InputMap.action_erase_events(player + "_" + mapping.action_name)
+		
+		var event = mapping.input
+		if device >= 0:
+			event.device = mapping.input
+		InputMap.action_add_event(player + "_" + mapping.action_name, event)
+	
+func unmap_scheme(scheme: Control, player: String):
+	# make sure player string is properly formatted
+	assert(player == "player1" or player == "player2", "Invalid player being mapped.")
+	print("Mapping joy device " + str(scheme.device) + " to " + player + ".")
+	
+	for mapping in input_mappings:
+		InputMap.action_erase_events(player + "_" + mapping.action_name)

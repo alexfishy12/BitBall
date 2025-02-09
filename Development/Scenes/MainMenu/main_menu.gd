@@ -95,7 +95,7 @@ func _on_one_player_pressed():
 func _on_two_players_pressed():
 	player_select_ui.show()
 	main_options.hide()
-	player_select_ui.get_joypads()
+	player_select_ui.get_control_schemes()
 	
 	#if not ball_should_move:
 		#audio_player.set_stream(select_sound)

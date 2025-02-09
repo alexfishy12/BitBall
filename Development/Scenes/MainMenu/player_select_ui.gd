@@ -45,38 +45,8 @@ func _input(event):
 			move_left(event.device)
 		if event.is_action_pressed("ui_right"):
 			move_right(event.device)
-
-
-func map_joy(device: int, player: String):
-	# make sure player string is properly formatted
-	assert(player == "player1" or player == "player2", "Invalid player being mapped.")
-	print("Mapping joy device " + str(device) + " to " + player + ".")
 	
-	# create joy event that will be added to each action
-	var joy_event = InputEventJoypadButton.new()
-	joy_event.device = device
 	
-	# create event for action
-	joy_event.button_index = JOY_BUTTON_DPAD_DOWN
-	# erase any actions mapped to the event
-	InputMap.action_erase_events(player + "_down")
-	#add joypad event to action
-	InputMap.action_add_event(player + "_down", joy_event)
-	
-	# create event for action
-	joy_event.button_index = JOY_BUTTON_DPAD_UP
-	# erase any actions mapped to the event
-	InputMap.action_erase_events(player + "_up")
-	#add joypad event to action
-	InputMap.action_add_event(player + "_up", joy_event)
-	
-	# create event for action
-	joy_event.button_index = JOY_BUTTON_A
-	# erase any actions mapped to the event
-	InputMap.action_erase_events(player + "_serve")
-	#add joypad event to action
-	InputMap.action_add_event(player + "_serve", joy_event)
-
 # this function is called only by the Input joy connection changed signal, 
 # which passes arguments that the get_control_schemes function doesn't need
 func get_control_schemes_wrapper(_arg1 = null, _arg2 = null):
@@ -128,8 +98,8 @@ func move_right(device: int):
 				control_scheme.current_state = control_scheme.STATE.UNSELECTED
 				unselect_player(control_scheme, "player1")
 			
-	
-	
+
+
 func select_player(control_scheme: Control, player: String):
 	
 	control_scheme.reparent(self, true) # reparents to the player select ui node for free movement

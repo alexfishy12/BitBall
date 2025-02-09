@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://btxrdydrkt362"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_bstc2"]
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_s282k"]
+
+[resource]
+script = ExtResource("1_bstc2")
+action_name = "serve"
+controller_input = SubResource("InputEventJoypadButton_s282k")

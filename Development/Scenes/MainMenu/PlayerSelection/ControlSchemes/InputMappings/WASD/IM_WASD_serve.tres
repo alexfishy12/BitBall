@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://bdof27xcde4n6"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_n451s"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_xrb4i"]
+device = -1
+keycode = 32
+unicode = 32
+
+[resource]
+script = ExtResource("1_n451s")
+action_name = "serve"
+input = SubResource("InputEventKey_xrb4i")

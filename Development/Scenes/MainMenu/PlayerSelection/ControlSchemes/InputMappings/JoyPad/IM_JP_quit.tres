@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://ff3mydka5naf"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_ws3mx"]
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_iars0"]
+device = -1
+button_index = 4
+
+[resource]
+script = ExtResource("1_ws3mx")
+action_name = "quit"
+controller_input = SubResource("InputEventJoypadButton_iars0")

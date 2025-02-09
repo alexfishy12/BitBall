@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://c0bcu28l217xn"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_tuq3v"]
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_iars0"]
+device = -1
+button_index = 12
+
+[resource]
+script = ExtResource("1_tuq3v")
+action_name = "down"
+controller_input = SubResource("InputEventJoypadButton_iars0")

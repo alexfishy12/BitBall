@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BitBall"
-run/main_scene="res://Scenes/Signature/SignatureScreen.tscn"
+run/main_scene="res://Scenes/MainMenu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/show_image=false
 boot_splash/image="res://Scenes/Signature/RockyGamesFinished_640x360.png"

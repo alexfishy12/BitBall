@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://6wn6f6oejjsp"]
 
-[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/detected_controller.gd" id="1_f3q3m"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.gd" id="1_f3q3m"]
 [ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="2_hqvml"]
 [ext_resource type="Texture2D" uid="uid://b3u27jp4shgo5" path="res://Scenes/MainMenu/PlayerSelection/Glyph_Controller.png" id="3_wagyj"]
 [ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="4_lxvwr"]

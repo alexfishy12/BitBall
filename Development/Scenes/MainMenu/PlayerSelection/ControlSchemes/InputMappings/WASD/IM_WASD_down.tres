@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://by0t6s122t2er"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_s7qk0"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_flboq"]
+device = -1
+keycode = 83
+unicode = 115
+
+[resource]
+script = ExtResource("1_s7qk0")
+action_name = "down"
+input = SubResource("InputEventKey_flboq")
