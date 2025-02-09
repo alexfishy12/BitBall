@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://deb1mftucur8n"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.gd" id="1_4r6nr"]
-[ext_resource type="Texture2D" uid="uid://b3u27jp4shgo5" path="res://Scenes/MainMenu/PlayerSelection/Glyph_Controller.png" id="2_yhgau"]
+[ext_resource type="Texture2D" uid="uid://omx2twr2x7wd" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/Glyph_Controller.png" id="2_thnpr"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="3_e5xgm"]
 [ext_resource type="Shader" path="res://Scenes/MainMenu/PlayerSelection/transparent.gdshader" id="3_popkj"]
 [ext_resource type="Resource" uid="uid://c0bcu28l217xn" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/IM_JP_down.tres" id="4_ot2bf"]
@@ -25,7 +25,7 @@ size_flags_vertical = 4
 alignment = 1
 script = ExtResource("1_4r6nr")
 is_joy = true
-device_glyph = ExtResource("2_yhgau")
+device_glyph = ExtResource("2_thnpr")
 input_mappings = Array[ExtResource("3_e5xgm")]([ExtResource("4_ot2bf"), ExtResource("5_u0xbb"), ExtResource("6_lt4qw"), ExtResource("7_vai0d"), ExtResource("8_mh17w")])
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -51,7 +51,7 @@ size_flags_horizontal = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_yhgau")
+texture = ExtResource("2_thnpr")
 stretch_mode = 4
 
 [node name="RightSpacer" type="Control" parent="HBoxContainer"]

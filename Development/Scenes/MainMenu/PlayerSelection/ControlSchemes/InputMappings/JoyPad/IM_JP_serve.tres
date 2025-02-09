@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://btxrdydrkt362"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://btxrdydrkt362"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_bstc2"]
+[ext_resource type="Texture2D" uid="uid://bwb0a8mxe44sy" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/Glyph_ButtonBottom.png" id="1_uwb2c"]
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_s282k"]
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_0rqce"]
+pressed = true
 
 [resource]
 script = ExtResource("1_bstc2")
 action_name = "serve"
-controller_input = SubResource("InputEventJoypadButton_s282k")
+input = SubResource("InputEventJoypadButton_0rqce")
+input_glyph = ExtResource("1_uwb2c")

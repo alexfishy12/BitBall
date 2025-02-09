@@ -1,11 +1,14 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://dqgayq8n4ws4w"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://dqgayq8n4ws4w"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_g6u54"]
+[ext_resource type="Texture2D" uid="uid://mjyo7pdlg456" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/Glyph_DPad_Up.png" id="1_pae3i"]
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_yktc3"]
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_6aa6n"]
 button_index = 11
+pressed = true
 
 [resource]
 script = ExtResource("1_g6u54")
 action_name = "up"
-controller_input = SubResource("InputEventJoypadButton_yktc3")
+input = SubResource("InputEventJoypadButton_6aa6n")
+input_glyph = ExtResource("1_pae3i")

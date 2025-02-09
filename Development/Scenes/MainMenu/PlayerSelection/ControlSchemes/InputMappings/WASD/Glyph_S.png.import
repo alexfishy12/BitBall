@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bt1ox77tapo4m"
-path="res://.godot/imported/Glyph_DPad_Up.png-7b04068a7a02f0826f186db7eaefa6b7.ctex"
+uid="uid://wsn8fvrnh6s4"
+path="res://.godot/imported/Glyph_S.png-cdcde1c8f4846ff325993680d0b1a688.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Gameplay/UI/GamepadGlyphs/Glyph_DPad_Up.png"
-dest_files=["res://.godot/imported/Glyph_DPad_Up.png-7b04068a7a02f0826f186db7eaefa6b7.ctex"]
+source_file="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_S.png"
+dest_files=["res://.godot/imported/Glyph_S.png-cdcde1c8f4846ff325993680d0b1a688.ctex"]
 
 [params]
 

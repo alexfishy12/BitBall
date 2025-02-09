@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0vacohpttvns"
-path="res://.godot/imported/Glyph_ArrowKeys.png-5421b810f784fda8ea52d39c1bfac8fd.ctex"
+uid="uid://dk65mmfbbry5s"
+path="res://.godot/imported/Glyph_Space.png-be31dcf85982e7f3a338877091be4f0a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/MainMenu/PlayerSelection/Glyph_ArrowKeys.png"
-dest_files=["res://.godot/imported/Glyph_ArrowKeys.png-5421b810f784fda8ea52d39c1bfac8fd.ctex"]
+source_file="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_Space.png"
+dest_files=["res://.godot/imported/Glyph_Space.png-be31dcf85982e7f3a338877091be4f0a.ctex"]
 
 [params]
 

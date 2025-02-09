@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://5ko4h5408pje"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://5ko4h5408pje"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_52o4w"]
+[ext_resource type="Texture2D" uid="uid://bkqnnwogsvma5" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/Glyph_Arrow_Down.png" id="1_d8mhp"]
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_iars0"]
+[sub_resource type="InputEventKey" id="InputEventKey_n8tno"]
 device = -1
-button_index = 12
+keycode = 4194322
 
 [resource]
 script = ExtResource("1_52o4w")
 action_name = "down"
-controller_input = SubResource("InputEventJoypadButton_iars0")
+input = SubResource("InputEventKey_n8tno")
+input_glyph = ExtResource("1_d8mhp")

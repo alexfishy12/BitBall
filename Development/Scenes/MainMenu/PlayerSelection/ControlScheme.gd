@@ -11,7 +11,7 @@ extends VBoxContainer
 var current_state: int
 var parent_after_tween: Control
 
-enum STATE {PLAYER1_SELECTED, UNSELECTED, PLAYER2_SELECTED}
+enum STATE {PLAYER1_SELECTED, UNSELECTED, PLAYER2_SELECTED, READIED_UP}
 
 var tween: Tween = null
 
@@ -56,7 +56,7 @@ func display_arrow(player: String, display: bool):
 func map_scheme(player: String):
 	# make sure player string is properly formatted
 	assert(player == "player1" or player == "player2", "Invalid player being mapped.")
-	print("Mapping joy device " + str(device) + " to " + player + ".")
+	print("Mapping device " + str(device) + " to " + player + ".")
 	
 	# map actions
 	for mapping in input_mappings:
@@ -64,13 +64,15 @@ func map_scheme(player: String):
 		
 		var event = mapping.input
 		if device >= 0:
-			event.device = mapping.input
+			event.device = device
 		InputMap.action_add_event(player + "_" + mapping.action_name, event)
+		
+	Singleton.store_mappings(player, input_mappings)
 	
-func unmap_scheme(scheme: Control, player: String):
+func unmap_scheme(player: String):
 	# make sure player string is properly formatted
-	assert(player == "player1" or player == "player2", "Invalid player being mapped.")
-	print("Mapping joy device " + str(scheme.device) + " to " + player + ".")
+	assert(player == "player1" or player == "player2", "Invalid player being unmapped.")
+	print("Unmapping device " + str(device) + " from " + player + ".")
 	
 	for mapping in input_mappings:
 		InputMap.action_erase_events(player + "_" + mapping.action_name)

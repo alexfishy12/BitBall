@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3u27jp4shgo5"
-path="res://.godot/imported/Glyph_Controller.png-09001f3bcdfa2cc3c57484d94d9b697f.ctex"
+uid="uid://baj7jwqe5e5iv"
+path="res://.godot/imported/Glyph_Tab.png-64f99d4a6d8757f202ba00432441ef81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/MainMenu/PlayerSelection/Glyph_Controller.png"
-dest_files=["res://.godot/imported/Glyph_Controller.png-09001f3bcdfa2cc3c57484d94d9b697f.ctex"]
+source_file="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_Tab.png"
+dest_files=["res://.godot/imported/Glyph_Tab.png-64f99d4a6d8757f202ba00432441ef81.ctex"]
 
 [params]
 

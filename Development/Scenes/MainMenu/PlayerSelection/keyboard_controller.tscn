@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.gd" id="1_f3q3m"]
 [ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="2_hqvml"]
-[ext_resource type="Texture2D" uid="uid://b3u27jp4shgo5" path="res://Scenes/MainMenu/PlayerSelection/Glyph_Controller.png" id="3_wagyj"]
 [ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="4_lxvwr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nxvcc"]
+load_path = "res://.godot/imported/Glyph_Controller.png-09001f3bcdfa2cc3c57484d94d9b697f.ctex"
 
 [node name="KeyboardController" type="VBoxContainer"]
 offset_left = 264.0
@@ -29,7 +31,7 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("3_wagyj")
+texture = SubResource("CompressedTexture2D_nxvcc")
 stretch_mode = 4
 
 [node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]

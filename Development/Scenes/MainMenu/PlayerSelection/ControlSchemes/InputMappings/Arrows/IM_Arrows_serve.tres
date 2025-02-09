@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://lt3ftwn5kxkk"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://lt3ftwn5kxkk"]
 
+[ext_resource type="Texture2D" uid="uid://c74mywamsg2v1" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/Glyph_Enter.png" id="1_fmgcr"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_pof0d"]
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_s282k"]
+[sub_resource type="InputEventKey" id="InputEventKey_yoomq"]
+device = -1
+keycode = 4194309
 
 [resource]
 script = ExtResource("1_pof0d")
 action_name = "serve"
-controller_input = SubResource("InputEventJoypadButton_s282k")
+input = SubResource("InputEventKey_yoomq")
+input_glyph = ExtResource("1_fmgcr")

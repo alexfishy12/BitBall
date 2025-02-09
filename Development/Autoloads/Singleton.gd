@@ -11,6 +11,9 @@ extends Node
 var player1_is_joypad : bool = false
 var player2_is_joypad : bool = false
 
+var player1_input_mappings: Array[InputMapping] = []
+var player2_input_mappings: Array[InputMapping] = []
+
 var blue_wins: int = 0
 var red_wins: int = 0
 var game_is_paused: bool = false
@@ -29,6 +32,25 @@ func print_joypad_information():
 func _input(event):
 	update_controls_ui(event)	
 	
+	
+func store_mappings(player: String, input_mappings: Array[InputMapping]):
+	if player == "player1":
+		player1_input_mappings = input_mappings
+	elif player == "player2":
+		player2_input_mappings = input_mappings
+		
+	set_glyphs()
+		
+func set_glyphs():
+	for mapping in player1_input_mappings:
+		var glyph_nodes = get_tree().get_nodes_in_group("player1_" + mapping.action_name + "_" + "glyph")
+		for node in glyph_nodes:
+			node.texture = mapping.input_glyph
+			
+	for mapping in player2_input_mappings:
+		var glyph_nodes = get_tree().get_nodes_in_group("player2_" + mapping.action_name + "_" + "glyph")
+		for node in glyph_nodes:
+			node.texture = mapping.input_glyph
 	
 # function used to update game controls ui
 func update_controls_ui(event):
@@ -83,15 +105,16 @@ func initialize_game(game_type: String):
 		get_tree().current_scene.queue_free()
 	get_tree().current_scene = game_scene
 	
-	if player1_is_joypad:
-		show_glyphs("p1", "joypad")
-	else:
-		show_glyphs("p1", "keyboard")
-	
-	if player2_is_joypad:
-		show_glyphs("p2", "joypad")
-	else:
-		show_glyphs("p2", "keyboard")
+	set_glyphs()
+	#if player1_is_joypad:
+		#show_glyphs("p1", "joypad")
+	#else:
+		#show_glyphs("p1", "keyboard")
+	#
+	#if player2_is_joypad:
+		#show_glyphs("p2", "joypad")
+	#else:
+		#show_glyphs("p2", "keyboard")
 	
 func add_win_score(player: String):
 	if player == "blue":

@@ -1,5 +1,6 @@
 extends Control
 
+
 @export var DetectedControllerScene: PackedScene
 var instantiated_controllers: Array[Control] = []
 
@@ -10,22 +11,44 @@ var instantiated_controllers: Array[Control] = []
 @export var player2_area : Control
 @export var player2_scheme_zone: Control
 
+@export_category("ReadyUpUI")
+@export var player1_controls_ui: Control
+@export var player1_checkbox_unchecked: Control
+@export var player1_checkbox_checked: Control
+@export var player2_controls_ui: Control
+@export var player2_checkbox_unchecked: Control
+@export var player2_checkbox_checked: Control
+
 var player1_selected: bool = false
 var player2_selected: bool = false
 
+var player1_readied_up: bool = false
+var player2_readied_up: bool = false
+
+var game_type = "two_player"
+
 enum DEVICE {
-	WASD = 100,
-	ARROWS = 101
+	WASD = -2,
+	ARROWS = -1
 }
+
+@export var input_mappings_to_clear : Array[InputMapping]
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.connect("joy_connection_changed", get_control_schemes_wrapper)
 	get_control_schemes()
+	clear_mappings()
+	
+func clear_mappings():
+	for player in ["player1", "player2"]:
+		for mapping in input_mappings_to_clear:
+			InputMap.action_erase_events(player + "_" + mapping.action_name)
+	
 	
 func _input(event):
-	# handle controls
-	pass
 	
 	# handle wasd/arrows
 	if event is InputEventKey:
@@ -45,6 +68,12 @@ func _input(event):
 			move_left(event.device)
 		if event.is_action_pressed("ui_right"):
 			move_right(event.device)
+	
+	# toggle ready up
+	if event.is_action_pressed("player1_serve"):
+		toggle_ready_up("player1")
+	if event.is_action_pressed("player2_serve"):
+		toggle_ready_up("player2")
 	
 	
 # this function is called only by the Input joy connection changed signal, 
@@ -80,7 +109,7 @@ func move_left(device: int):
 				print("selecting player1")
 				control_scheme.current_state = control_scheme.STATE.PLAYER1_SELECTED
 				select_player(control_scheme, "player1")
-			elif control_scheme.current_state == control_scheme.STATE.PLAYER2_SELECTED and player2_selected:
+			elif control_scheme.current_state == control_scheme.STATE.PLAYER2_SELECTED and player2_selected and not player2_readied_up:
 				print("unselecting player2")
 				control_scheme.current_state = control_scheme.STATE.UNSELECTED
 				unselect_player(control_scheme, "player2")
@@ -93,7 +122,7 @@ func move_right(device: int):
 				print("selecting player2")
 				control_scheme.current_state = control_scheme.STATE.PLAYER2_SELECTED
 				select_player(control_scheme, "player2")
-			elif control_scheme.current_state == control_scheme.STATE.PLAYER1_SELECTED and player1_selected:
+			elif control_scheme.current_state == control_scheme.STATE.PLAYER1_SELECTED and player1_selected and not player1_readied_up:
 				print("unselecting player1")
 				control_scheme.current_state = control_scheme.STATE.UNSELECTED
 				unselect_player(control_scheme, "player1")
@@ -101,7 +130,11 @@ func move_right(device: int):
 
 
 func select_player(control_scheme: Control, player: String):
-	
+	# keep zone last in list
+	available_controller_schemes_area.move_child(
+		available_controller_schemes_zone, 
+		available_controller_schemes_area.get_child_count()
+	)
 	control_scheme.reparent(self, true) # reparents to the player select ui node for free movement
 	for scheme in get_tree().get_nodes_in_group("detected_controllers"):
 		scheme.display_arrow(player, false)
@@ -119,10 +152,9 @@ func select_player(control_scheme: Control, player: String):
 		await control_scheme.move_to_slot(control_scheme, player2_scheme_zone.global_position)
 		control_scheme.reparent(control_scheme.parent_after_tween)
 		
-	available_controller_schemes_area.move_child(
-		available_controller_schemes_zone, 
-		available_controller_schemes_area.get_child_count()
-	)
+	
+	control_scheme.map_scheme(player)
+	display_ready_up_ui(player, true)
 	
 func unselect_player(control_scheme: Control, player: String):
 	for scheme in get_tree().get_nodes_in_group("detected_controllers"):
@@ -138,3 +170,50 @@ func unselect_player(control_scheme: Control, player: String):
 	await control_scheme.move_to_slot(control_scheme, available_controller_schemes_zone.global_position)
 	# this simply reparents the control scheme to the vbox for the available control schemes
 	control_scheme.reparent(control_scheme.parent_after_tween)
+	# keep zone last in list
+	available_controller_schemes_area.move_child(
+		available_controller_schemes_zone, 
+		available_controller_schemes_area.get_child_count()
+	)
+	
+	control_scheme.unmap_scheme(player)
+	display_ready_up_ui(player, false)
+	
+func display_ready_up_ui(player: String, display: bool):
+	if player == "player1":
+		if display:
+			player1_controls_ui.show()
+		elif !display:
+			player1_controls_ui.hide()
+	elif player == "player2":
+		if display:
+			player2_controls_ui.show()
+		elif !display:
+			player2_controls_ui.hide()
+			
+func toggle_ready_up(player):
+	if player == "player1":
+		player1_readied_up = not player1_readied_up
+		mark_checkbox(player, player1_readied_up)
+	elif player == "player2":
+		player2_readied_up = not player2_readied_up
+		mark_checkbox(player, player2_readied_up)
+		
+	if player1_readied_up and player2_readied_up:
+		Singleton.initialize_game(game_type)
+
+func mark_checkbox(player, mark):
+	if player == "player1":
+		if mark:
+			player1_checkbox_unchecked.hide()
+			player1_checkbox_checked.show()
+		else:
+			player1_checkbox_checked.hide()
+			player1_checkbox_unchecked.show()
+	elif player == "player2":
+		if mark:
+			player2_checkbox_unchecked.hide()
+			player2_checkbox_checked.show()
+		else:
+			player2_checkbox_checked.hide()
+			player2_checkbox_unchecked.show()

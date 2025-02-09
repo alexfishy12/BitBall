@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://by0t6s122t2er"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://by0t6s122t2er"]
 
+[ext_resource type="Texture2D" uid="uid://wsn8fvrnh6s4" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_S.png" id="1_23ylt"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_s7qk0"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_flboq"]
@@ -11,3 +12,4 @@ unicode = 115
 script = ExtResource("1_s7qk0")
 action_name = "down"
 input = SubResource("InputEventKey_flboq")
+input_glyph = ExtResource("1_23ylt")

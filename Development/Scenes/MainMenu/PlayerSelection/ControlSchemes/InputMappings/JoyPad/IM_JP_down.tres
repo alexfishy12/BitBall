@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://c0bcu28l217xn"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://c0bcu28l217xn"]
 
+[ext_resource type="Texture2D" uid="uid://bixyw4l3ha5aj" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/Glyph_DPad_Down.png" id="1_sqbug"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_tuq3v"]
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_iars0"]
-device = -1
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_l4nag"]
 button_index = 12
+pressed = true
 
 [resource]
 script = ExtResource("1_tuq3v")
 action_name = "down"
-controller_input = SubResource("InputEventJoypadButton_iars0")
+input = SubResource("InputEventJoypadButton_l4nag")
+input_glyph = ExtResource("1_sqbug")

@@ -19,7 +19,8 @@ extends Control
 
 @export_category("PlayerSelect")
 @export var DetectedControllerScene: PackedScene
-@export var player_select_ui: Control
+@export var PlayerSelectScene: PackedScene
+var player_select_ui: Control
 
 @export_category("Audio Controls")
 @export var master_volume_value_label: Label
@@ -93,13 +94,15 @@ func _on_one_player_pressed():
 		game_type = "one_player"
 
 func _on_two_players_pressed():
-	player_select_ui.show()
 	main_options.hide()
+	var player_select_ui = PlayerSelectScene.instantiate()
+	add_child(player_select_ui)
+	player_select_ui.show()
 	player_select_ui.get_control_schemes()
+	audio_player.set_stream(select_sound)
+	audio_player.play()
 	
 	#if not ball_should_move:
-		#audio_player.set_stream(select_sound)
-		#audio_player.play()
 		#setup_animation_ball("two_players")
 		#game_type = "two_player"
 

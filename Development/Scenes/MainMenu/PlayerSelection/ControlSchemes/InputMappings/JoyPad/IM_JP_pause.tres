@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://cy850uxkwx32d"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://cy850uxkwx32d"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_1rfe4"]
+[ext_resource type="Texture2D" uid="uid://ct7da2wr72i6o" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/Glyph_Start.png" id="1_br01y"]
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_iars0"]
-device = -1
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_td1c2"]
 button_index = 6
+pressed = true
 
 [resource]
 script = ExtResource("1_1rfe4")
 action_name = "pause"
-controller_input = SubResource("InputEventJoypadButton_iars0")
+input = SubResource("InputEventJoypadButton_td1c2")
+input_glyph = ExtResource("1_br01y")

@@ -13,14 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="10_l1uv6"]
 [ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Entities/Ball/Ball_12x12.png" id="11_nqhsb"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/rich_text_label.gd" id="13_6w4kg"]
-[ext_resource type="PackedScene" uid="uid://dabrv8eiac7f0" path="res://player_select_ui.tscn" id="15_dhe1m"]
+[ext_resource type="PackedScene" uid="uid://dabrv8eiac7f0" path="res://Scenes/MainMenu/PlayerSelectUI.tscn" id="15_dhe1m"]
 [ext_resource type="PackedScene" uid="uid://deb1mftucur8n" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.tscn" id="17_3krbv"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_feluc"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_weedt"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("menu_options", "main_options", "settings_options", "title", "game_environment", "one_player_button", "two_players_button", "options_button", "settings_back", "quit_button", "ball_sprite", "audio_player", "credits_ui", "credits_button", "credits_back_button", "player_select_ui", "master_volume_value_label", "master_volume_slider", "soundfx_volume_value_label", "soundfx_volume_slider", "music_volume_value_label", "music_volume_slider")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("menu_options", "main_options", "settings_options", "title", "game_environment", "one_player_button", "two_players_button", "options_button", "settings_back", "quit_button", "ball_sprite", "audio_player", "credits_ui", "credits_button", "credits_back_button", "master_volume_value_label", "master_volume_slider", "soundfx_volume_value_label", "soundfx_volume_slider", "music_volume_value_label", "music_volume_slider")]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -46,7 +46,7 @@ credits_ui = NodePath("CreditsUI")
 credits_button = NodePath("MenuOptions/MainOptions/Credits")
 credits_back_button = NodePath("CreditsUI/CreditsBackButton")
 DetectedControllerScene = ExtResource("17_3krbv")
-player_select_ui = NodePath("PlayerSelectUI")
+PlayerSelectScene = ExtResource("15_dhe1m")
 master_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/MasterVolumeValueLabel")
 master_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox1/HBoxContainer/Master Volume Slider")
 soundfx_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/SoundFXVolumeValueLabel")
@@ -429,10 +429,6 @@ DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE."
 script = ExtResource("13_6w4kg")
-
-[node name="PlayerSelectUI" parent="." instance=ExtResource("15_dhe1m")]
-visible = false
-layout_mode = 1
 
 [connection signal="pressed" from="MenuOptions/MainOptions/Singleplayer" to="." method="_on_one_player_pressed"]
 [connection signal="pressed" from="MenuOptions/MainOptions/Multiplayer" to="." method="_on_two_players_pressed"]

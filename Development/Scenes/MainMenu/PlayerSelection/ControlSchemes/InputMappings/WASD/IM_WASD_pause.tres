@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://6o8a0eunidch"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://6o8a0eunidch"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_1xu6a"]
+[ext_resource type="Texture2D" uid="uid://ftlvr6bxrqvw" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_Esc.png" id="1_4qgue"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_jfhbe"]
 device = -1
@@ -10,3 +11,4 @@ keycode = 4194305
 script = ExtResource("1_1xu6a")
 action_name = "pause"
 input = SubResource("InputEventKey_jfhbe")
+input_glyph = ExtResource("1_4qgue")

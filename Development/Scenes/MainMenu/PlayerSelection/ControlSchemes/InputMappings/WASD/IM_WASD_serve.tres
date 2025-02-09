@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="InputMapping" load_steps=3 format=3 uid="uid://bdof27xcde4n6"]
+[gd_resource type="Resource" script_class="InputMapping" load_steps=4 format=3 uid="uid://bdof27xcde4n6"]
 
+[ext_resource type="Texture2D" uid="uid://dk65mmfbbry5s" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_Space.png" id="1_m3eu5"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="1_n451s"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_xrb4i"]
@@ -11,3 +12,4 @@ unicode = 32
 script = ExtResource("1_n451s")
 action_name = "serve"
 input = SubResource("InputEventKey_xrb4i")
+input_glyph = ExtResource("1_m3eu5")

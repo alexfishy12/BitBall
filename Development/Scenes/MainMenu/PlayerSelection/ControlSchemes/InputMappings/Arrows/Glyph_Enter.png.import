@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0gag6eh4gaf"
-path="res://.godot/imported/Glyph_WASD.png-76e38329114413927d5ffd3d92433746.ctex"
+uid="uid://c74mywamsg2v1"
+path="res://.godot/imported/Glyph_Enter.png-856ad9d472d07492f0ece9a4489ec59a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/MainMenu/PlayerSelection/Glyph_WASD.png"
-dest_files=["res://.godot/imported/Glyph_WASD.png-76e38329114413927d5ffd3d92433746.ctex"]
+source_file="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/Glyph_Enter.png"
+dest_files=["res://.godot/imported/Glyph_Enter.png-856ad9d472d07492f0ece9a4489ec59a.ctex"]
 
 [params]
 
