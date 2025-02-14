@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd47jv1xl47ht"]
+
+[ext_resource type="Script" path="res://control_scheme.gd" id="1_1m1ox"]
+[ext_resource type="Texture2D" uid="uid://cbsxktdbbdy7" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/AIGlyphs/Glyph_AI.png" id="2_j4tg3"]
+[ext_resource type="Shader" path="res://Scenes/MainMenu/PlayerSelection/transparent.gdshader" id="8_wyul5"]
+[ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="9_cts5j"]
+[ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="11_6agau"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="12_qelja"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xuly"]
+shader = ExtResource("8_wyul5")
+
+[node name="AIControlScheme" type="VBoxContainer" groups=["detected_controllers"]]
+offset_right = 90.0
+offset_bottom = 58.0
+pivot_offset = Vector2(45, 29)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+script = ExtResource("1_1m1ox")
+is_joy = true
+device_name = "AI Opponent"
+device_glyph = ExtResource("2_j4tg3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="BlueArrowLeft" type="TextureRect" parent="HBoxContainer"]
+material = SubResource("ShaderMaterial_3xuly")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("9_cts5j")
+stretch_mode = 4
+
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ControllerGlyph" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("2_j4tg3")
+stretch_mode = 4
+
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("11_6agau")
+stretch_mode = 4
+
+[node name="ControllerName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("12_qelja")
+theme_override_font_sizes/font_size = 16
+text = "AI Opponent"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

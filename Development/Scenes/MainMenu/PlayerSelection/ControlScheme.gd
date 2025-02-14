@@ -74,5 +74,7 @@ func unmap_scheme(player: String):
 	assert(player == "player1" or player == "player2", "Invalid player being unmapped.")
 	print("Unmapping device " + str(device) + " from " + player + ".")
 	
+	Singleton.delete_mappings(player)
 	for mapping in input_mappings:
+		print("unmapping: " + mapping.action_name + " from " + player)
 		InputMap.action_erase_events(player + "_" + mapping.action_name)

@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://djykwn8tdgg3o"]
+
+[ext_resource type="Script" path="res://Entities/Paddles/ai_paddle.gd" id="1_0yebd"]
+[ext_resource type="Texture2D" uid="uid://bcjgr5l3bjkuf" path="res://Entities/Paddles/Blue Paddle/Paddle_blue_8x32.png" id="2_00rb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vumdi"]
+size = Vector2(32, 8)
+
+[node name="AI_Paddle_Blue" type="CharacterBody2D" groups=["paddle"]]
+script = ExtResource("1_0yebd")
+speed = 450
+ai_acceleration = 1.0
+decision_time = 0.15
+play_location = Vector2(20, 180)
+metadata/_edit_horizontal_guides_ = [-32.0, 32.0, 16.0, -16.0]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 4.76837e-07)
+texture = ExtResource("2_00rb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_vumdi")
+one_way_collision = true
+
+[node name="DecisionTimer" type="Timer" parent="."]
+
+[node name="DirectionChangeTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DecisionTimer" to="." method="_on_decision_timer_timeout"]
+[connection signal="timeout" from="DirectionChangeTimer" to="." method="_on_direction_change_timer_timeout"]

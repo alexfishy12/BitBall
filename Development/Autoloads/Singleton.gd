@@ -40,6 +40,12 @@ func store_mappings(player: String, input_mappings: Array[InputMapping]):
 		player2_input_mappings = input_mappings
 		
 	set_glyphs()
+
+func delete_mappings(player: String):
+	if player == "player1":
+		player1_input_mappings = []
+	elif player == "player2":
+		player2_input_mappings = []
 		
 func set_glyphs():
 	for mapping in player1_input_mappings:
@@ -127,6 +133,8 @@ func leave_game():
 	red_wins = 0
 	game_is_paused = false
 	get_tree().change_scene_to_packed(main_menu)
+	delete_mappings("player1")
+	delete_mappings("player2")
 
 func toggle_pause():
 	game_is_paused = !game_is_paused

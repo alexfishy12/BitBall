@@ -87,15 +87,22 @@ func setup_animation_ball(button_name):
 ###################################
 
 func _on_one_player_pressed():
-	if not ball_should_move:
-		audio_player.set_stream(select_sound)
-		audio_player.play()
-		setup_animation_ball("one_player")
-		game_type = "one_player"
+	main_options.hide()
+	player_select_ui = PlayerSelectScene.instantiate()
+	game_type = "one_player"
+	player_select_ui.game_type = game_type
+	add_child(player_select_ui)
+	player_select_ui.show()
+	player_select_ui.get_control_schemes()
+	audio_player.set_stream(select_sound)
+	audio_player.play()
+		
 
 func _on_two_players_pressed():
 	main_options.hide()
-	var player_select_ui = PlayerSelectScene.instantiate()
+	player_select_ui = PlayerSelectScene.instantiate()
+	game_type = "two_player"
+	player_select_ui.game_type = game_type
 	add_child(player_select_ui)
 	player_select_ui.show()
 	player_select_ui.get_control_schemes()

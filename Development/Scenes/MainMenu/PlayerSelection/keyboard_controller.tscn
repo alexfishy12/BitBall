@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="4_lxvwr"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nxvcc"]
-load_path = "res://.godot/imported/Glyph_Controller.png-09001f3bcdfa2cc3c57484d94d9b697f.ctex"
 
 [node name="KeyboardController" type="VBoxContainer"]
 offset_left = 264.0

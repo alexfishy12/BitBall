@@ -49,7 +49,7 @@ size_flags_horizontal = 4
 
 [node name="ControllerGlyph" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
 texture = ExtResource("2_thnpr")
 stretch_mode = 4

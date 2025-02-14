@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://dsewrq7y6mnch"]
+[gd_scene load_steps=28 format=3 uid="uid://dsewrq7y6mnch"]
 
 [ext_resource type="Script" path="res://Scenes/Gameplay/game.gd" id="1_o4wpn"]
 [ext_resource type="PackedScene" uid="uid://djbupf86vrcpe" path="res://Entities/Paddles/Red Paddle/AI Paddle/ai_paddle_red.tscn" id="2_2ndue"]
 [ext_resource type="PackedScene" uid="uid://cquyrrh87yhw" path="res://Entities/Paddles/Red Paddle/paddle_red.tscn" id="3_dn3lx"]
+[ext_resource type="PackedScene" uid="uid://djykwn8tdgg3o" path="res://Entities/Paddles/Blue Paddle/ai_paddle_blue.tscn" id="3_ep5jp"]
 [ext_resource type="PackedScene" uid="uid://xjqw6jak37fa" path="res://Entities/Ball/ball.tscn" id="4_li07v"]
 [ext_resource type="AudioStream" uid="uid://iscpl3l3j7pg" path="res://Scenes/Gameplay/Score.ogg" id="5_id3k2"]
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="6_o8lwb"]
@@ -10,6 +11,7 @@
 [ext_resource type="Script" path="res://Scenes/Gameplay/UI/Debug_Label.gd" id="8_2olad"]
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="8_3xen2"]
 [ext_resource type="Texture2D" uid="uid://dqytod6frkhvd" path="res://Scenes/Gameplay/UI/WinScreen/SeeThroughBG.png" id="9_ekyhf"]
+[ext_resource type="Texture2D" uid="uid://gy0k6og4kquc" path="res://Entities/Ball/Ball_12x12.png" id="10_byoce"]
 [ext_resource type="PackedScene" uid="uid://d1ab3udiepd3p" path="res://Scenes/Gameplay/UI/WinScreen/win_screen.tscn" id="10_k6tjv"]
 [ext_resource type="Texture2D" uid="uid://bixyw4l3ha5aj" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/Glyph_DPad_Down.png" id="12_nw5a7"]
 [ext_resource type="Texture2D" uid="uid://bwb0a8mxe44sy" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/JoyPad/Glyph_ButtonBottom.png" id="13_o57s1"]
@@ -45,21 +47,73 @@ shader = SubResource("Shader_jsamj")
 shader_parameter/threshold = 1.0
 shader_parameter/color = Color(1, 1, 1, 1)
 
+[sub_resource type="Animation" id="Animation_fv2ps"]
+resource_name = "blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBox_Blue/Player1ServeUI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.509804), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBox_Red/Player2ServeUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.509804), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_prajo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBox_Blue/Player1ServeUI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1tahl"]
+_data = {
+"RESET": SubResource("Animation_prajo"),
+"blink": SubResource("Animation_fv2ps")
+}
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pt756"]
 load_path = "res://.godot/imported/Glyph_DPad_Up.png-7b04068a7a02f0826f186db7eaefa6b7.ctex"
 
-[node name="Game" type="Node" node_paths=PackedStringArray("score_label_blue", "score_label_red", "ui_controls", "ui_player1_controls", "ui_player2_controls", "ui_game_paused", "win_screen", "blue_player", "audio_player")]
+[node name="Game" type="Node" node_paths=PackedStringArray("score_label_blue", "score_label_red", "ui_controls", "ui_player1_controls", "ui_player2_controls", "ui_player1_serve", "ui_player2_serve", "ui_game_paused", "win_screen", "audio_player")]
 script = ExtResource("1_o4wpn")
-score_label_blue = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Blue")
-score_label_red = NodePath("UI/MarginContainer/HBox_Scores/Score_Label_Red")
+score_label_blue = NodePath("UI/MarginContainer/HBox_Scores/HBox_Blue/Score_Label_Blue")
+score_label_red = NodePath("UI/MarginContainer/HBox_Scores/HBox_Red/Score_Label_Red")
 ui_controls = NodePath("UI/UI_Controls")
 ui_player1_controls = NodePath("UI/UI_Controls/PlayerOneControls")
 ui_player2_controls = NodePath("UI/UI_Controls/PlayerTwoControls")
+ui_player1_serve = NodePath("UI/MarginContainer/HBox_Scores/HBox_Blue/Player1ServeUI")
+ui_player2_serve = NodePath("UI/MarginContainer/HBox_Scores/HBox_Red/Player2ServeUI")
 ui_game_paused = NodePath("UI/PauseScreen")
 win_screen = NodePath("UI/WinScreen")
-blue_player = NodePath("GameEnvironment/Paddle_Blue")
-RedAiPaddle = ExtResource("2_2ndue")
-RedPlayerPaddle = ExtResource("3_dn3lx")
+BluePlayerPaddleScene = ExtResource("7_l6jjt")
+BlueAiPaddleScene = ExtResource("3_ep5jp")
+RedAiPaddleScene = ExtResource("2_2ndue")
+RedPlayerPaddleScene = ExtResource("3_dn3lx")
 ball_scene = ExtResource("4_li07v")
 audio_player = NodePath("AudioStreamPlayer2D")
 sound_score = ExtResource("5_id3k2")
@@ -99,16 +153,6 @@ position = Vector2(664, 180)
 position = Vector2(78, 8)
 shape = SubResource("RectangleShape2D_0slyo")
 
-[node name="Paddle_Blue" parent="GameEnvironment" instance=ExtResource("7_l6jjt")]
-position = Vector2(-4, 180)
-player_name = "blue"
-speed = 600
-is_server = true
-play_location = Vector2(20, 180)
-move_up = "player1_up"
-move_down = "player1_down"
-serve = "player1_serve"
-
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
@@ -140,14 +184,65 @@ layout_mode = 2
 size_flags_vertical = 0
 alignment = 1
 
-[node name="Score_Label_Blue" type="Label" parent="UI/MarginContainer/HBox_Scores"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/MarginContainer/HBox_Scores"]
+libraries = {
+"": SubResource("AnimationLibrary_1tahl")
+}
+autoplay = "blink"
+
+[node name="HBox_Blue" type="HBoxContainer" parent="UI/MarginContainer/HBox_Scores"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Score_Label_Blue" type="Label" parent="UI/MarginContainer/HBox_Scores/HBox_Blue"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_outline_color = Color(0, 0.392157, 1, 1)
 theme_override_constants/outline_size = 2
 text = "0"
 
-[node name="Score_Label_Red" type="Label" parent="UI/MarginContainer/HBox_Scores"]
+[node name="Player1ServeUI" type="HBoxContainer" parent="UI/MarginContainer/HBox_Scores/HBox_Blue"]
+visible = false
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/HBox_Scores/HBox_Blue/Player1ServeUI"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("10_byoce")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HBox_Scores/HBox_Blue/Player1ServeUI"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Player 1 serves"
+
+[node name="HBox_Red" type="HBoxContainer" parent="UI/MarginContainer/HBox_Scores"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Player2ServeUI" type="HBoxContainer" parent="UI/MarginContainer/HBox_Scores/HBox_Red"]
+visible = false
+modulate = Color(1, 1, 1, 0.952897)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HBox_Scores/HBox_Red/Player2ServeUI"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Player 2 serves"
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/HBox_Scores/HBox_Red/Player2ServeUI"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("10_byoce")
+stretch_mode = 4
+
+[node name="Score_Label_Red" type="Label" parent="UI/MarginContainer/HBox_Scores/HBox_Red"]
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 3
@@ -201,6 +296,7 @@ theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 16
 
 [node name="PlayerOneControls" type="VBoxContainer" parent="UI/UI_Controls"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -214,6 +310,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Up:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/UpControl" groups=["player1_up_glyph"]]
 layout_mode = 2
@@ -230,6 +327,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Down:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/DownControl" groups=["player1_down_glyph"]]
 layout_mode = 2
@@ -246,6 +344,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Serve:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/ServeControl" groups=["player1_serve_glyph"]]
 layout_mode = 2
@@ -262,6 +361,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Pause:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/PauseControl" groups=["player1_pause_glyph"]]
 layout_mode = 2
@@ -279,6 +379,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Rematch:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/RematchControl" groups=["player1_serve_glyph"]]
 layout_mode = 2
@@ -296,6 +397,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Quit:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerOneControls/QuitControl" groups=["player1_quit_glyph"]]
 layout_mode = 2
@@ -304,6 +406,7 @@ texture = ExtResource("15_6etef")
 stretch_mode = 4
 
 [node name="PlayerTwoControls" type="VBoxContainer" parent="UI/UI_Controls"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -312,13 +415,14 @@ alignment = 2
 [node name="UpControl" type="HBoxContainer" parent="UI/UI_Controls/PlayerTwoControls"]
 layout_mode = 2
 size_flags_horizontal = 8
-alignment = 2
 
 [node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/UpControl"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Up:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/UpControl" groups=["player2_up_glyph"]]
 layout_mode = 2
@@ -332,10 +436,12 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/DownControl"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Down:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/DownControl" groups=["player2_down_glyph"]]
 layout_mode = 2
@@ -349,10 +455,12 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/ServeControl"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Serve:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/ServeControl" groups=["player2_serve_glyph"]]
 layout_mode = 2
@@ -366,10 +474,12 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/PauseControl"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Pause:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/PauseControl" groups=["player1_pause_glyph", "player2_pause_glyph"]]
 layout_mode = 2
@@ -384,10 +494,12 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/RematchControl"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Rematch:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/RematchControl" groups=["player2_serve_glyph"]]
 layout_mode = 2
@@ -402,10 +514,12 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="FunctionLabel" type="Label" parent="UI/UI_Controls/PlayerTwoControls/QuitControl"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "Quit:"
+horizontal_alignment = 2
 
 [node name="ControlGlyph" type="TextureRect" parent="UI/UI_Controls/PlayerTwoControls/QuitControl" groups=["player2_quit_glyph"]]
 layout_mode = 2

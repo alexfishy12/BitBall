@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://dabrv8eiac7f0"]
+[gd_scene load_steps=22 format=3 uid="uid://dabrv8eiac7f0"]
 
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_dsoj5"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelectUI.gd" id="2_pr62p"]
 [ext_resource type="PackedScene" uid="uid://deb1mftucur8n" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.tscn" id="3_fd4w7"]
+[ext_resource type="PackedScene" uid="uid://bd47jv1xl47ht" path="res://Scenes/MainMenu/ai_control_scheme.tscn" id="4_6lsm1"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="4_7774u"]
 [ext_resource type="Resource" uid="uid://by0t6s122t2er" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_down.tres" id="5_m7f1x"]
 [ext_resource type="Resource" uid="uid://6o8a0eunidch" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_pause.tres" id="6_ospsj"]
@@ -34,6 +35,7 @@ grow_vertical = 2
 theme = ExtResource("1_dsoj5")
 script = ExtResource("2_pr62p")
 DetectedControllerScene = ExtResource("3_fd4w7")
+AIControlSchemeScene = ExtResource("4_6lsm1")
 available_controller_schemes_area = NodePath("MarginContainer/VBoxContainer/HBoxContainer/AvailableControllerSchemesArea")
 available_controller_schemes_zone = NodePath("MarginContainer/VBoxContainer/HBoxContainer/AvailableControllerSchemesArea/SchemeZone")
 player1_area = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Player1Area")

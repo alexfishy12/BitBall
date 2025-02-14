@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cesombxseq2bt"]
 
 [ext_resource type="Texture2D" uid="uid://bcjgr5l3bjkuf" path="res://Entities/Paddles/Blue Paddle/Paddle_blue_8x32.png" id="2_7lxhr"]
-[ext_resource type="Script" path="res://Entities/Paddles/player.gd" id="2_vkjkh"]
+[ext_resource type="Script" path="res://Entities/Paddles/player_paddle.gd" id="2_vkjkh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efm1q"]
 size = Vector2(32, 8)
@@ -9,6 +9,10 @@ size = Vector2(32, 8)
 [node name="Paddle_Blue" type="CharacterBody2D" groups=["paddle"]]
 script = ExtResource("2_vkjkh")
 speed = 450
+play_location = Vector2(20, 180)
+move_up = "player1_up"
+move_down = "player1_down"
+serve = "player1_serve"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

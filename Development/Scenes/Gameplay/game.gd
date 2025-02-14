@@ -5,14 +5,19 @@ extends Node
 @export var ui_controls: Control
 @export var ui_player1_controls: Control
 @export var ui_player2_controls: Control
+@export var ui_player1_serve: Control
+@export var ui_player2_serve: Control
 @export var ui_game_paused: Control
 @export var win_screen: Control
 @export var blue_player : Node
 @export var red_player : Node
-@export var RedAiPaddle: PackedScene
-@export var RedPlayerPaddle: PackedScene
+@export var BluePlayerPaddleScene: PackedScene
+@export var BlueAiPaddleScene: PackedScene
+@export var RedAiPaddleScene: PackedScene
+@export var RedPlayerPaddleScene: PackedScene
 @export var ball_scene : PackedScene
 @export var default_ball_pos : Vector2 = Vector2(320, 180)
+@export var default_blue_paddle_pos: Vector2 = Vector2(-4, 180)
 @export var default_red_paddle_pos: Vector2 = Vector2(644, 180)
 @export var audio_player: AudioStreamPlayer2D
 @export var sound_score : AudioStreamOggVorbis
@@ -23,15 +28,58 @@ var player_2_wants_to_replay = false
 
 func _ready():
 	if game_type == "one_player":
-		red_player = RedAiPaddle.instantiate()
+		win_screen.hide_checkboxes()
+		if Singleton.player1_input_mappings.size() == 0:
+			blue_player = BlueAiPaddleScene.instantiate()
+			red_player = RedPlayerPaddleScene.instantiate()
+			player_1_wants_to_replay = true
+			red_player.is_server = true
+			ui_player2_serve.show()
+			ui_player2_controls.show()
+		elif Singleton.player2_input_mappings.size() == 0:
+			ui_player1_controls.show()
+			blue_player = BluePlayerPaddleScene.instantiate()
+			red_player = RedAiPaddleScene.instantiate()
+			player_2_wants_to_replay = true
+			blue_player.is_server = true
+			ui_player1_serve.show()
 	elif game_type == "two_player":
+		ui_player1_controls.show()
 		ui_player2_controls.show()
-		red_player = RedPlayerPaddle.instantiate()
+		blue_player = BluePlayerPaddleScene.instantiate()
+		red_player = RedPlayerPaddleScene.instantiate()
+	
+	# randomly choose server if two player mode
+	if game_type == "two_player":
+		var rng = randf()
+		if rng <= 0.5:
+			blue_player.is_server = true
+			ui_player1_serve.show()
+		elif rng > 0.5:
+			red_player.is_server = true
+			ui_player2_serve.show()
+		
+	
+	blue_player.global_position = default_blue_paddle_pos
+	blue_player.player_name = "blue"
 	
 	red_player.global_position = default_red_paddle_pos
 	red_player.player_name = "red"
+	$GameEnvironment.add_child(blue_player)
 	$GameEnvironment.add_child(red_player)
+	
+	Events.connect("ball_served", hide_serve_ui_wrapper)
 	reset_ball()
+
+func hide_serve_ui_wrapper(_unused_arg):
+	hide_serve_ui()
+	
+func hide_serve_ui():
+	print("game got ball served")
+	ui_controls.hide()
+	ui_player1_serve.hide()
+	ui_player2_serve.hide()
+	
 
 func player_scored(player):
 	audio_player.set_stream(sound_score)
@@ -43,12 +91,14 @@ func player_scored(player):
 			end_game(player.player_name)
 		else:
 			reset_ball()
+			ui_player1_serve.show()
 	elif player.player_name == "red":
 		score_label_red.set_text("%01d" % player.score)
 		if player.score > 6:
 			end_game(player.player_name)
 		else:
 			reset_ball()
+			ui_player2_serve.show()
 	
 	Events.emit_signal("player_scored", player)
 
@@ -60,10 +110,6 @@ func end_game(winning_player: String):
 	elif winning_player == "red":
 		Singleton.add_win_score("red")
 		win_screen.red_wins()
-	
-	if red_player.is_ai:
-		player_2_wants_to_replay = true
-		win_screen.hide_checkboxes()
 	
 	win_screen.update_win_label()
 	win_screen.show()
@@ -91,9 +137,6 @@ func _input(event):
 	if not game_ended:
 		if event.is_action_pressed('player1_pause') or event.is_action_pressed("player2_pause"):
 			pause_game()
-		if event.is_action_pressed('player1_serve') \
-		and ui_controls.visible and not Singleton.game_is_paused and not blue_player.just_spawned:
-			ui_controls.hide()
 	if Singleton.is_game_paused():
 		if event.is_action_pressed('player1_quit') or event.is_action_pressed("player2_quit"):
 			Singleton.leave_game()

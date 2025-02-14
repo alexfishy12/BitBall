@@ -2,6 +2,8 @@ extends Control
 
 
 @export var DetectedControllerScene: PackedScene
+@export var AIControlSchemeScene: PackedScene
+var ai_control_scheme: AIControlScheme
 var instantiated_controllers: Array[Control] = []
 
 @export var available_controller_schemes_area : Control
@@ -25,7 +27,7 @@ var player2_selected: bool = false
 var player1_readied_up: bool = false
 var player2_readied_up: bool = false
 
-var game_type = "two_player"
+@export var game_type : String = "two_player"
 
 enum DEVICE {
 	WASD = -2,
@@ -39,6 +41,8 @@ enum DEVICE {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.connect("joy_connection_changed", get_control_schemes_wrapper)
+	if game_type == "one_player":
+		spawn_ai_control_scheme()
 	get_control_schemes()
 	clear_mappings()
 	
@@ -47,7 +51,12 @@ func clear_mappings():
 		for mapping in input_mappings_to_clear:
 			InputMap.action_erase_events(player + "_" + mapping.action_name)
 	
+
+func spawn_ai_control_scheme():
+	ai_control_scheme = AIControlSchemeScene.instantiate()
+	available_controller_schemes_area.add_child(ai_control_scheme)
 	
+
 func _input(event):
 	
 	# handle wasd/arrows
@@ -93,7 +102,7 @@ func get_control_schemes():
 	for joypad in connected_joypads:
 		print("Is joypad known: " + str(Input.is_joy_known(joypad)))
 		print("Joypad name: " + str(Input.get_joy_name(joypad)))
-		if Input.is_joy_known(joypad):
+		if Input.is_joy_known(joypad) and instantiated_controllers.size() < 2:
 			var detected_controller = DetectedControllerScene.instantiate()
 			detected_controller.device = joypad
 			detected_controller.device_name = Input.get_joy_name(joypad)
@@ -106,28 +115,28 @@ func move_left(device: int):
 	for control_scheme in detected_controllers:
 		if control_scheme.device == device:
 			if control_scheme.current_state == control_scheme.STATE.UNSELECTED and not player1_selected:
-				print("selecting player1")
-				control_scheme.current_state = control_scheme.STATE.PLAYER1_SELECTED
 				select_player(control_scheme, "player1")
+				if game_type == "one_player":
+					select_player(ai_control_scheme, "player2")
 			elif control_scheme.current_state == control_scheme.STATE.PLAYER2_SELECTED and player2_selected and not player2_readied_up:
-				print("unselecting player2")
-				control_scheme.current_state = control_scheme.STATE.UNSELECTED
 				unselect_player(control_scheme, "player2")
+				if game_type == "one_player":
+					unselect_player(ai_control_scheme, "player1")
+					toggle_ready_up("player1")
 			
 func move_right(device: int):
 	var detected_controllers = get_tree().get_nodes_in_group("detected_controllers")
 	for control_scheme in detected_controllers:
 		if control_scheme.device == device:
 			if control_scheme.current_state == control_scheme.STATE.UNSELECTED and not player2_selected:
-				print("selecting player2")
-				control_scheme.current_state = control_scheme.STATE.PLAYER2_SELECTED
 				select_player(control_scheme, "player2")
+				if game_type == "one_player":
+					select_player(ai_control_scheme, "player1")
 			elif control_scheme.current_state == control_scheme.STATE.PLAYER1_SELECTED and player1_selected and not player1_readied_up:
-				print("unselecting player1")
-				control_scheme.current_state = control_scheme.STATE.UNSELECTED
 				unselect_player(control_scheme, "player1")
-			
-
+				if game_type == "one_player":
+					unselect_player(ai_control_scheme, "player2")
+					toggle_ready_up("player2")
 
 func select_player(control_scheme: Control, player: String):
 	# keep zone last in list
@@ -139,13 +148,23 @@ func select_player(control_scheme: Control, player: String):
 	for scheme in get_tree().get_nodes_in_group("detected_controllers"):
 		scheme.display_arrow(player, false)
 	
+	if control_scheme is AIControlScheme:
+		toggle_ready_up(player)
+	else:
+		control_scheme.map_scheme(player)
+		display_ready_up_ui(player, true)
+	
 	if player == "player1":
+		print("selecting player1")
+		control_scheme.current_state = control_scheme.STATE.PLAYER1_SELECTED
 		player1_selected = true
 		print(player + " selected!")
 		control_scheme.set_parent_after_tween(player1_area)
 		await control_scheme.move_to_slot(control_scheme, player1_scheme_zone.global_position)
 		control_scheme.reparent(control_scheme.parent_after_tween)
 	elif player == "player2":
+		print("selecting player2")
+		control_scheme.current_state = control_scheme.STATE.PLAYER2_SELECTED
 		player2_selected = true
 		print(player + " selected!")
 		control_scheme.set_parent_after_tween(player2_area)
@@ -153,13 +172,15 @@ func select_player(control_scheme: Control, player: String):
 		control_scheme.reparent(control_scheme.parent_after_tween)
 		
 	
-	control_scheme.map_scheme(player)
-	display_ready_up_ui(player, true)
-	
 func unselect_player(control_scheme: Control, player: String):
 	for scheme in get_tree().get_nodes_in_group("detected_controllers"):
 		scheme.display_arrow(player, true)
-		
+	
+	control_scheme.unmap_scheme(player)
+	display_ready_up_ui(player, false)
+	print("unselecting player1")
+	control_scheme.current_state = control_scheme.STATE.UNSELECTED
+	
 	if player == "player1":
 		player1_selected = false
 	if player == "player2":
@@ -176,8 +197,6 @@ func unselect_player(control_scheme: Control, player: String):
 		available_controller_schemes_area.get_child_count()
 	)
 	
-	control_scheme.unmap_scheme(player)
-	display_ready_up_ui(player, false)
 	
 func display_ready_up_ui(player: String, display: bool):
 	if player == "player1":
