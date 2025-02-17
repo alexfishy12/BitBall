@@ -1,0 +1,80 @@
+[gd_scene load_steps=14 format=3 uid="uid://cfnd8qv8utog"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.gd" id="1_vq0pe"]
+[ext_resource type="Texture2D" uid="uid://b8llrob8107u7" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/Glyph_ArrowKeys.png" id="2_nymi4"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="3_x6fdw"]
+[ext_resource type="Resource" uid="uid://5ko4h5408pje" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/IM_Arrows_down.tres" id="4_8nqyh"]
+[ext_resource type="Resource" uid="uid://cssux5vd3rcbh" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/IM_Arrows_pause.tres" id="5_h15nk"]
+[ext_resource type="Resource" uid="uid://bucclsjialyum" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/IM_Arrows_quit.tres" id="6_dt66f"]
+[ext_resource type="Resource" uid="uid://lt3ftwn5kxkk" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/IM_Arrows_serve.tres" id="7_byw05"]
+[ext_resource type="Resource" uid="uid://dbklgnys5ng6v" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/IM_Arrows_up.tres" id="8_xhxaw"]
+[ext_resource type="Shader" path="res://Scenes/MainMenu/PlayerSelection/transparent.gdshader" id="9_rv3bm"]
+[ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="10_qxd62"]
+[ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="11_dxipw"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="12_0vowg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xuly"]
+shader = ExtResource("9_rv3bm")
+
+[node name="ArrowsControlScheme" type="VBoxContainer" groups=["detected_controllers"]]
+custom_minimum_size = Vector2(90, 60)
+offset_right = 90.0
+offset_bottom = 58.0
+pivot_offset = Vector2(45, 29)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+script = ExtResource("1_vq0pe")
+is_joy = true
+device_name = "Arrow Keys"
+device_glyph = ExtResource("2_nymi4")
+input_mappings = Array[ExtResource("3_x6fdw")]([ExtResource("4_8nqyh"), ExtResource("5_h15nk"), ExtResource("6_dt66f"), ExtResource("7_byw05"), ExtResource("8_xhxaw")])
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="BlueArrowLeft" type="TextureRect" parent="HBoxContainer"]
+material = SubResource("ShaderMaterial_3xuly")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("10_qxd62")
+stretch_mode = 4
+
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ControllerGlyph" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("2_nymi4")
+stretch_mode = 4
+
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("11_dxipw")
+stretch_mode = 4
+
+[node name="ControllerName" type="Label" parent="."]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("12_0vowg")
+theme_override_font_sizes/font_size = 16
+text = "Arrow Keys"
+horizontal_alignment = 1
+text_overrun_behavior = 2

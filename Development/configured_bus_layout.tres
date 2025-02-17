@@ -1,7 +1,17 @@
-[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://gtfoqj3e6vjd"]
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://gtfoqj3e6vjd"]
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_ua855"]
 resource_name = "SpectrumAnalyzer"
+
+[sub_resource type="AudioEffectEQ10" id="AudioEffectEQ10_pjut8"]
+resource_name = "EQ10"
+band_db/250_hz = -60.0
+band_db/500_hz = -60.0
+band_db/1000_hz = -60.0
+band_db/2000_hz = -60.0
+band_db/4000_hz = -60.0
+band_db/8000_hz = -60.0
+band_db/16000_hz = -60.0
 
 [resource]
 bus/1/name = &"SoundFX"
@@ -18,3 +28,5 @@ bus/2/volume_db = 0.0
 bus/2/send = &"Master"
 bus/2/effect/0/effect = SubResource("AudioEffectSpectrumAnalyzer_ua855")
 bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectEQ10_pjut8")
+bus/2/effect/1/enabled = false

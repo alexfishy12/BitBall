@@ -6,11 +6,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vumdi"]
 size = Vector2(32, 8)
 
-[node name="AI_Paddle_Blue" type="CharacterBody2D" groups=["paddle"]]
+[node name="AI_Paddle_Blue" type="CharacterBody2D" node_paths=PackedStringArray("serve_timer") groups=["paddle"]]
 script = ExtResource("1_0yebd")
 speed = 450
 ai_acceleration = 1.0
 decision_time = 0.15
+serve_timer = NodePath("ServeTimer")
 play_location = Vector2(20, 180)
 metadata/_edit_horizontal_guides_ = [-32.0, 32.0, 16.0, -16.0]
 
@@ -27,6 +28,9 @@ one_way_collision = true
 [node name="DecisionTimer" type="Timer" parent="."]
 
 [node name="DirectionChangeTimer" type="Timer" parent="."]
+
+[node name="ServeTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="DecisionTimer" to="." method="_on_decision_timer_timeout"]
 [connection signal="timeout" from="DirectionChangeTimer" to="." method="_on_direction_change_timer_timeout"]

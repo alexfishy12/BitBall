@@ -16,6 +16,7 @@ extends CharacterBody2D
 @export var direction_change_time: float = 0.1
 @export var chosen_direction : int = 0
 var direction := Vector2.ZERO
+@export var serve_timer: Timer
 
 @export_category("Ready Animation")
 @export var just_spawned: bool = false
@@ -47,7 +48,17 @@ func _physics_process(delta):
 
 	if ball == null:
 		return
-	
+		
+	if Singleton.game_is_paused:
+		if not serve_timer.paused:
+			serve_timer.set_paused(true)
+		return
+		
+	if not Singleton.game_is_paused and serve_timer.paused:
+		serve_timer.set_paused(false)
+		print("is_called")
+		
+		
 	var distance_from_ball = abs(ball.position.y - self.position.y)
 	var is_paddle_aligned = distance_from_ball < $CollisionShape2D.shape.size.x / 2
 	Events.emit_signal("should_paddle_move", not(is_paddle_aligned))
@@ -100,7 +111,8 @@ func serve_ball():
 func get_ball(new_ball):
 	ball = new_ball
 	if is_server && ball:
-		await get_tree().create_timer(time_before_serve).timeout
+		serve_timer.start()
+		await serve_timer.timeout
 		serve_ball()
 
 

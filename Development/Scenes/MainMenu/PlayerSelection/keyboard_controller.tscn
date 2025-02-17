@@ -1,20 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://6wn6f6oejjsp"]
+[gd_scene load_steps=6 format=3 uid="uid://ce3s16saabxoj"]
 
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_0e16l"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.gd" id="1_f3q3m"]
 [ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="2_hqvml"]
+[ext_resource type="Texture2D" uid="uid://bbaq4xnpn13s3" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_WASD.png" id="2_vuk07"]
 [ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="4_lxvwr"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nxvcc"]
-
 [node name="KeyboardController" type="VBoxContainer"]
+custom_minimum_size = Vector2(90, 60)
 offset_left = 264.0
 offset_top = 157.0
 offset_right = 354.0
 offset_bottom = 222.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("1_0e16l")
 alignment = 1
 script = ExtResource("1_f3q3m")
+device_glyph = ExtResource("2_vuk07")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -28,9 +31,9 @@ stretch_mode = 4
 
 [node name="ControllerGlyph" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = SubResource("CompressedTexture2D_nxvcc")
+texture = ExtResource("2_vuk07")
 stretch_mode = 4
 
 [node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]

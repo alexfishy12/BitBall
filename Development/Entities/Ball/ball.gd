@@ -7,9 +7,8 @@ var speed_increment: float = 1.0002
 @export var direction: Vector2 = Vector2.ZERO
 @export var is_served: bool = false
 var default_pos: Vector2 = Vector2(320, 180)
-@onready var audio_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@export var paddle_hit: AudioStreamOggVorbis
-@export var wall_hit : AudioStreamOggVorbis
+@onready var audio_player_wall_hit: AudioStreamPlayer2D = $AudioStream_WallHit
+@onready var audio_player_paddle_hit: AudioStreamPlayer2D = $AudioStream_PaddleHit
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,13 +28,11 @@ func _physics_process(delta):
 	speed = min(speed, max_speed)
 	
 	if is_on_ceiling() || is_on_floor():
-		audio_player.set_stream(wall_hit)
-		audio_player.play()
+		audio_player_wall_hit.play()
 		direction.y = -direction.y
 		
 	if is_on_wall():
-		audio_player.set_stream(paddle_hit)
-		audio_player.play()
+		audio_player_paddle_hit.play()
 		direction.x = -direction.x
 		for slide in get_slide_collision_count():
 			var collision = get_slide_collision(slide)

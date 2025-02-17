@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bd47jv1xl47ht"]
 
-[ext_resource type="Script" path="res://control_scheme.gd" id="1_1m1ox"]
+[ext_resource type="Script" path="res://AIControlScheme.gd" id="1_rnkvg"]
 [ext_resource type="Texture2D" uid="uid://cbsxktdbbdy7" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/AIGlyphs/Glyph_AI.png" id="2_j4tg3"]
 [ext_resource type="Shader" path="res://Scenes/MainMenu/PlayerSelection/transparent.gdshader" id="8_wyul5"]
 [ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="9_cts5j"]
@@ -17,7 +17,8 @@ pivot_offset = Vector2(45, 29)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
-script = ExtResource("1_1m1ox")
+script = ExtResource("1_rnkvg")
+device = -10
 is_joy = true
 device_name = "AI Opponent"
 device_glyph = ExtResource("2_j4tg3")

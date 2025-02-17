@@ -17,6 +17,7 @@
 shader = ExtResource("3_popkj")
 
 [node name="ControlScheme" type="VBoxContainer" groups=["detected_controllers"]]
+custom_minimum_size = Vector2(90, 60)
 offset_right = 90.0
 offset_bottom = 58.0
 pivot_offset = Vector2(45, 29)
@@ -68,11 +69,11 @@ texture = ExtResource("5_a1x2n")
 stretch_mode = 4
 
 [node name="ControllerName" type="Label" parent="."]
+custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("6_ios6i")
 theme_override_font_sizes/font_size = 16
 text = "Controller"
 horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+text_overrun_behavior = 2

@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://unw3doliybgs"]
+
+[ext_resource type="Shader" path="res://scrolling_bg.gdshader" id="1_vain3"]
+[ext_resource type="Texture2D" uid="uid://cfrpfs32wxt1g" path="res://Scenes/MainMenu/ball_tiled.png" id="2_xeyrk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_is3le"]
+shader = ExtResource("1_vain3")
+shader_parameter/x_speed = 0.1
+shader_parameter/y_speed = 0.0
+
+[sub_resource type="Animation" id="Animation_tud53"]
+resource_name = "color_fade"
+length = 40.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pattern:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10, 20, 30, 40),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.235294), Color(0, 0.392157, 1, 0.235294), Color(1, 1, 1, 0.235294), Color(1, 0, 0, 0.235294), Color(1, 1, 1, 0.235294)]
+}
+
+[sub_resource type="Animation" id="Animation_ipyf8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pattern:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.392157, 1, 0.498039)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lnton"]
+_data = {
+"RESET": SubResource("Animation_ipyf8"),
+"color_fade": SubResource("Animation_tud53")
+}
+
+[node name="ScrollingBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Pattern" type="TextureRect" parent="."]
+modulate = Color(0, 0.392157, 1, 0.498039)
+material = SubResource("ShaderMaterial_is3le")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xeyrk")
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lnton")
+}
+autoplay = "color_fade"

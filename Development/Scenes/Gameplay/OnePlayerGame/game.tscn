@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cquyrrh87yhw" path="res://Entities/Paddles/Red Paddle/paddle_red.tscn" id="3_dn3lx"]
 [ext_resource type="PackedScene" uid="uid://djykwn8tdgg3o" path="res://Entities/Paddles/Blue Paddle/ai_paddle_blue.tscn" id="3_ep5jp"]
 [ext_resource type="PackedScene" uid="uid://xjqw6jak37fa" path="res://Entities/Ball/ball.tscn" id="4_li07v"]
-[ext_resource type="AudioStream" uid="uid://iscpl3l3j7pg" path="res://Scenes/Gameplay/Score.ogg" id="5_id3k2"]
+[ext_resource type="AudioStream" uid="uid://bvww4ab7mkkv1" path="res://Scenes/Gameplay/Score.ogg" id="5_id3k2"]
 [ext_resource type="Texture2D" uid="uid://twbq7u5ro2s7" path="res://Scenes/Gameplay/GameEnvironment.png" id="6_o8lwb"]
 [ext_resource type="PackedScene" uid="uid://cesombxseq2bt" path="res://Entities/Paddles/Blue Paddle/paddle_blue.tscn" id="7_l6jjt"]
 [ext_resource type="Script" path="res://Scenes/Gameplay/UI/Debug_Label.gd" id="8_2olad"]
@@ -47,6 +47,21 @@ shader = SubResource("Shader_jsamj")
 shader_parameter/threshold = 1.0
 shader_parameter/color = Color(1, 1, 1, 1)
 
+[sub_resource type="Animation" id="Animation_prajo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBox_Blue/Player1ServeUI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_fv2ps"]
 resource_name = "blink"
 loop_mode = 1
@@ -73,21 +88,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.509804), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_prajo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HBox_Blue/Player1ServeUI:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1tahl"]

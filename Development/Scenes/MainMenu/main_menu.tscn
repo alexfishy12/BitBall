@@ -1,11 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://c5lpbyehh2wsy"]
+[gd_scene load_steps=19 format=3 uid="uid://c5lpbyehh2wsy"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/main_menu.gd" id="1_bcqhp"]
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_tmyp6"]
-[ext_resource type="AudioStream" uid="uid://wg873c066bmy" path="res://Entities/Ball/Paddle_Hit.ogg" id="2_cjvl6"]
-[ext_resource type="AudioStream" uid="uid://iscpl3l3j7pg" path="res://Scenes/Gameplay/Score.ogg" id="3_x0wul"]
+[ext_resource type="AudioStream" uid="uid://bvww4ab7mkkv1" path="res://Scenes/Gameplay/Score.ogg" id="3_x0wul"]
 [ext_resource type="Texture2D" uid="uid://bniutmrri45m5" path="res://Scenes/MainMenu/BitBallNoBall.png" id="5_dlyvp"]
+[ext_resource type="AudioStream" uid="uid://bqepbpl6tt2i3" path="res://Entities/Ball/Wall_Hit.ogg" id="5_gao6e"]
 [ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Scenes/MainMenu/MainMenuBG.png" id="6_dat5o"]
+[ext_resource type="PackedScene" uid="uid://unw3doliybgs" path="res://scrolling_background.tscn" id="8_d61m5"]
 [ext_resource type="PackedScene" uid="uid://beep3fm8yoa3g" path="res://Scenes/MainMenu/Button.tscn" id="9_d2ted"]
 [ext_resource type="StyleBox" uid="uid://bhiskbyf70d08" path="res://Scenes/MainMenu/custom_button_theme.tres" id="9_jh10o"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/options/option_ui.gd" id="9_wdhsd"]
@@ -53,7 +54,7 @@ soundfx_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox2/
 soundfx_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox2/HBoxContainer/Sound FX Volume Slider")
 music_volume_value_label = NodePath("MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/MusicVolumeValueLabel")
 music_volume_slider = NodePath("MenuOptions/SettingsOptions/SettingVbox3/HBoxContainer2/Music Volume Slider")
-focus_sound = ExtResource("2_cjvl6")
+focus_sound = ExtResource("5_gao6e")
 select_sound = ExtResource("3_x0wul")
 transition_time = 3.0
 
@@ -66,6 +67,9 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_dat5o")
 expand_mode = 1
+
+[node name="ScrollingBackground" parent="." instance=ExtResource("8_d61m5")]
+layout_mode = 1
 
 [node name="Title" type="Sprite2D" parent="."]
 position = Vector2(447, 67)

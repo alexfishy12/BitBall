@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://el52o7vddrng"]
+
+[ext_resource type="PackedScene" uid="uid://wmh15gn3fi6p" path="res://smooth_vertical_list.tscn" id="1_t4of3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AddButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = 143.0
+offset_bottom = 65.0
+text = "Add node"
+
+[node name="RemoveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 80.0
+offset_right = 143.0
+offset_bottom = 117.0
+text = "Remove node"
+
+[node name="SmoothVerticalList" parent="." instance=ExtResource("1_t4of3")]
+
+[connection signal="pressed" from="AddButton" to="SmoothVerticalList" method="add_node"]
+[connection signal="pressed" from="RemoveButton" to="SmoothVerticalList" method="remove_node"]

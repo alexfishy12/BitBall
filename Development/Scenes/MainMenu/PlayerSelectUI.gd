@@ -3,6 +3,9 @@ extends Control
 
 @export var DetectedControllerScene: PackedScene
 @export var AIControlSchemeScene: PackedScene
+@export var WASDControlSchemeScene: PackedScene
+@export var ArrowsControlSchemeScene: PackedScene
+
 var ai_control_scheme: AIControlScheme
 var instantiated_controllers: Array[Control] = []
 
@@ -12,6 +15,8 @@ var instantiated_controllers: Array[Control] = []
 @export var player1_scheme_zone: Control
 @export var player2_area : Control
 @export var player2_scheme_zone: Control
+@export var player1_scheme_zone_center: Vector2
+@export var player2_scheme_zone_center: Vector2
 
 @export_category("ReadyUpUI")
 @export var player1_controls_ui: Control
@@ -26,6 +31,8 @@ var player2_selected: bool = false
 
 var player1_readied_up: bool = false
 var player2_readied_up: bool = false
+
+var max_controllers : int = 2
 
 @export var game_type : String = "two_player"
 
@@ -43,8 +50,17 @@ func _ready() -> void:
 	Input.connect("joy_connection_changed", get_control_schemes_wrapper)
 	if game_type == "one_player":
 		spawn_ai_control_scheme()
+		max_controllers = 1
 	get_control_schemes()
 	clear_mappings()
+	
+	# add default control schemes
+	var wasd_control_scheme = WASDControlSchemeScene.instantiate()
+	var arrows_control_scheme = ArrowsControlSchemeScene.instantiate()
+	wasd_control_scheme.device = DEVICE.WASD
+	arrows_control_scheme.device = DEVICE.ARROWS
+	available_controller_schemes_area.add_child(wasd_control_scheme)
+	available_controller_schemes_area.add_child(arrows_control_scheme)
 	
 func clear_mappings():
 	for player in ["player1", "player2"]:
@@ -80,10 +96,15 @@ func _input(event):
 	
 	# toggle ready up
 	if event.is_action_pressed("player1_serve"):
+		print('player 1 readied up')
 		toggle_ready_up("player1")
 	if event.is_action_pressed("player2_serve"):
+		print('player 2 readied up')
 		toggle_ready_up("player2")
 	
+	if event.is_action_pressed("ui_back"):
+		Events.emit_signal("player_select_ui_cancelled")
+		queue_free()
 	
 # this function is called only by the Input joy connection changed signal, 
 # which passes arguments that the get_control_schemes function doesn't need
@@ -102,7 +123,7 @@ func get_control_schemes():
 	for joypad in connected_joypads:
 		print("Is joypad known: " + str(Input.is_joy_known(joypad)))
 		print("Joypad name: " + str(Input.get_joy_name(joypad)))
-		if Input.is_joy_known(joypad) and instantiated_controllers.size() < 2:
+		if Input.is_joy_known(joypad) and instantiated_controllers.size() < max_controllers:
 			var detected_controller = DetectedControllerScene.instantiate()
 			detected_controller.device = joypad
 			detected_controller.device_name = Input.get_joy_name(joypad)
@@ -139,11 +160,16 @@ func move_right(device: int):
 					toggle_ready_up("player2")
 
 func select_player(control_scheme: Control, player: String):
+	# get center of scheme zone
+	player1_scheme_zone_center = player1_scheme_zone.global_position + player1_scheme_zone.size / 2
+	player2_scheme_zone_center = player2_scheme_zone.global_position + player2_scheme_zone.size / 2
+	var control_scheme_center = control_scheme.size / 2
+	
+	var player1_target_pos = player1_scheme_zone_center - control_scheme_center
+	var player2_target_pos = player2_scheme_zone_center - control_scheme_center
+	
+	
 	# keep zone last in list
-	available_controller_schemes_area.move_child(
-		available_controller_schemes_zone, 
-		available_controller_schemes_area.get_child_count()
-	)
 	control_scheme.reparent(self, true) # reparents to the player select ui node for free movement
 	for scheme in get_tree().get_nodes_in_group("detected_controllers"):
 		scheme.display_arrow(player, false)
@@ -160,16 +186,16 @@ func select_player(control_scheme: Control, player: String):
 		player1_selected = true
 		print(player + " selected!")
 		control_scheme.set_parent_after_tween(player1_area)
-		await control_scheme.move_to_slot(control_scheme, player1_scheme_zone.global_position)
-		control_scheme.reparent(control_scheme.parent_after_tween)
+		await control_scheme.move_to_slot("global_position", player1_target_pos)
+		#control_scheme.reparent(control_scheme.parent_after_tween)
 	elif player == "player2":
 		print("selecting player2")
 		control_scheme.current_state = control_scheme.STATE.PLAYER2_SELECTED
 		player2_selected = true
 		print(player + " selected!")
 		control_scheme.set_parent_after_tween(player2_area)
-		await control_scheme.move_to_slot(control_scheme, player2_scheme_zone.global_position)
-		control_scheme.reparent(control_scheme.parent_after_tween)
+		await control_scheme.move_to_slot("global_position", player2_target_pos)
+		#control_scheme.reparent(control_scheme.parent_after_tween)
 		
 	
 func unselect_player(control_scheme: Control, player: String):
@@ -188,14 +214,9 @@ func unselect_player(control_scheme: Control, player: String):
 	
 	control_scheme.reparent(self, true)
 	control_scheme.set_parent_after_tween(available_controller_schemes_area)
-	await control_scheme.move_to_slot(control_scheme, available_controller_schemes_zone.global_position)
+	#await control_scheme.move_to_slot(control_scheme, available_controller_schemes_zone.global_position)
 	# this simply reparents the control scheme to the vbox for the available control schemes
 	control_scheme.reparent(control_scheme.parent_after_tween)
-	# keep zone last in list
-	available_controller_schemes_area.move_child(
-		available_controller_schemes_zone, 
-		available_controller_schemes_area.get_child_count()
-	)
 	
 	
 func display_ready_up_ui(player: String, display: bool):

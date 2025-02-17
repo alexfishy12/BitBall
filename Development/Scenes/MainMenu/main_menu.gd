@@ -31,8 +31,8 @@ var player_select_ui: Control
 @export var music_volume_slider: HSlider
 
 @export_category("Menu Sounds")
-@export var focus_sound: Resource
-@export var select_sound: Resource
+@export var focus_sound: AudioStream
+@export var select_sound: AudioStream
 
 var game_type: String
 
@@ -47,6 +47,7 @@ func _ready():
 	set_volume_sliders_to_saved_values()
 	one_player_button.grab_focus()
 	Events.connect("button_focused", button_focused)
+	Events.connect("player_select_ui_cancelled", _on_player_select_ui_cancelled)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -112,6 +113,13 @@ func _on_two_players_pressed():
 	#if not ball_should_move:
 		#setup_animation_ball("two_players")
 		#game_type = "two_player"
+		
+func _on_player_select_ui_cancelled():
+	main_options.show()
+	if game_type == "one_player":
+		one_player_button.grab_focus()
+	elif game_type == "two_player":
+		two_players_button.grab_focus()
 
 func _on_settings_pressed():
 	settings_back.grab_focus()

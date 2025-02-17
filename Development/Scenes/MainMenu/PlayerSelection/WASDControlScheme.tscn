@@ -1,0 +1,80 @@
+[gd_scene load_steps=14 format=3 uid="uid://38pw8pinfqt3"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlScheme.gd" id="1_tmi6v"]
+[ext_resource type="Texture2D" uid="uid://bbaq4xnpn13s3" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_WASD.png" id="2_e8fte"]
+[ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMapping.gd" id="3_qgtvk"]
+[ext_resource type="Resource" uid="uid://by0t6s122t2er" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_down.tres" id="4_vm2ei"]
+[ext_resource type="Resource" uid="uid://6o8a0eunidch" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_pause.tres" id="5_xdiyj"]
+[ext_resource type="Resource" uid="uid://dd6oefhthd8n8" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_quit.tres" id="6_14ou7"]
+[ext_resource type="Resource" uid="uid://bdof27xcde4n6" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_serve.tres" id="7_6taqa"]
+[ext_resource type="Resource" uid="uid://c58yq8ujxnm4u" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_up.tres" id="8_3yt4y"]
+[ext_resource type="Shader" path="res://Scenes/MainMenu/PlayerSelection/transparent.gdshader" id="9_my6gx"]
+[ext_resource type="Texture2D" uid="uid://de71vw2iuajx5" path="res://Scenes/MainMenu/PlayerSelection/BlueArrowLeft.png" id="10_cdcdu"]
+[ext_resource type="Texture2D" uid="uid://bq0dd686vjfml" path="res://Scenes/MainMenu/PlayerSelection/RedArrowRight.png" id="11_ik2go"]
+[ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="12_7e7sd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xuly"]
+shader = ExtResource("9_my6gx")
+
+[node name="WASDControlScheme" type="VBoxContainer" groups=["detected_controllers"]]
+custom_minimum_size = Vector2(90, 60)
+offset_right = 90.0
+offset_bottom = 58.0
+pivot_offset = Vector2(45, 29)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+script = ExtResource("1_tmi6v")
+is_joy = true
+device_name = "WASD"
+device_glyph = ExtResource("2_e8fte")
+input_mappings = Array[ExtResource("3_qgtvk")]([ExtResource("4_vm2ei"), ExtResource("5_xdiyj"), ExtResource("6_14ou7"), ExtResource("7_6taqa"), ExtResource("8_3yt4y")])
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="BlueArrowLeft" type="TextureRect" parent="HBoxContainer"]
+material = SubResource("ShaderMaterial_3xuly")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("10_cdcdu")
+stretch_mode = 4
+
+[node name="LeftSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ControllerGlyph" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("2_e8fte")
+stretch_mode = 4
+
+[node name="RightSpacer" type="Control" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RedArrowRight" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("11_ik2go")
+stretch_mode = 4
+
+[node name="ControllerName" type="Label" parent="."]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("12_7e7sd")
+theme_override_font_sizes/font_size = 16
+text = "WASD"
+horizontal_alignment = 1
+text_overrun_behavior = 2

@@ -20,14 +20,6 @@ var game_is_paused: bool = false
 
 func _ready():
 	AudioServer.set_bus_layout(audio_bus_layout)
-	print_joypad_information()
-	
-func print_joypad_information():
-	var connected_joypads : Array[int] = Input.get_connected_joypads()
-	print("Connected Joypads: " + str(connected_joypads))
-	for joypad in connected_joypads:
-		print("Is joypad known: " + str(Input.is_joy_known(joypad)))
-		print("Joypad name: " + str(Input.get_joy_name(joypad)))
 
 func _input(event):
 	update_controls_ui(event)	
@@ -132,12 +124,14 @@ func leave_game():
 	blue_wins = 0
 	red_wins = 0
 	game_is_paused = false
+	Events.emit_signal("game_is_paused", game_is_paused)
 	get_tree().change_scene_to_packed(main_menu)
 	delete_mappings("player1")
 	delete_mappings("player2")
 
 func toggle_pause():
 	game_is_paused = !game_is_paused
+	Events.emit_signal("game_is_paused", game_is_paused)
 	
 func is_game_paused():
 	return game_is_paused

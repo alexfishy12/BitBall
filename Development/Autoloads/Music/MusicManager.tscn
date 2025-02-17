@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1pa5a65mr1qk"]
+
+[ext_resource type="Script" path="res://Autoloads/Music/music_manager.gd" id="1_y3p84"]
+[ext_resource type="AudioStream" uid="uid://cqwnkk7dshdm5" path="res://Autoloads/Music/BitBall_MainMenu.ogg" id="2_rndov"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_y3p84")
+main_menu_music = ExtResource("2_rndov")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"Music"
+playback_type = 1

@@ -22,16 +22,15 @@ func _ready():
 
 func set_parent_after_tween(control: Control):
 	parent_after_tween = control
-	print("New parent: " + str(control.name))
+	#print("New parent: " + str(control.name))
 	
-func move_to_slot(ui_element, target_position):
-	if ui_element:
-		if tween:
-			tween.kill()
-		tween = get_tree().create_tween()
-		tween.tween_property(ui_element, "global_position", target_position, 0.5).set_trans(Tween.TRANS_SINE)
-		await tween.finished
-		print("tween_finished")
+func move_to_slot(property: String, target_position):
+	if tween:
+		tween.kill()
+	tween = create_tween()
+	tween.tween_property(self, property, target_position, 0.5).set_trans(Tween.TRANS_SINE)
+	await tween.finished
+	#print("tween_finished")
 		
 
 ### HIDE/SHOW ARROWS
