@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dabrv8eiac7f0"]
+[gd_scene load_steps=20 format=3 uid="uid://dabrv8eiac7f0"]
 
 [ext_resource type="Theme" uid="uid://ktu1r3yrsmdp" path="res://game_theme.tres" id="1_dsoj5"]
 [ext_resource type="Script" path="res://Scenes/MainMenu/PlayerSelectUI.gd" id="2_pr62p"]
@@ -12,7 +12,6 @@
 [ext_resource type="Resource" uid="uid://dd6oefhthd8n8" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_quit.tres" id="7_h4ah3"]
 [ext_resource type="Resource" uid="uid://bdof27xcde4n6" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_serve.tres" id="8_cjdgy"]
 [ext_resource type="Resource" uid="uid://c58yq8ujxnm4u" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/IM_WASD_up.tres" id="9_rjrfp"]
-[ext_resource type="Texture2D" uid="uid://babdj8gc1o83f" path="res://Scenes/MainMenu/MainMenuBG.png" id="10_bc3l0"]
 [ext_resource type="PackedScene" uid="uid://wmh15gn3fi6p" path="res://smooth_vertical_list.tscn" id="12_plc6b"]
 [ext_resource type="Texture2D" uid="uid://baj7jwqe5e5iv" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/WASD/Glyph_Tab.png" id="14_5wjl4"]
 [ext_resource type="Texture2D" uid="uid://bcqees01ey5qb" path="res://Scenes/MainMenu/PlayerSelection/ControlSchemes/InputMappings/Arrows/Glyph_Del.png" id="16_ag3xn"]
@@ -49,16 +48,6 @@ player2_controls_ui = NodePath("MarginContainer/UI_Controls/HBoxContainer2/Playe
 player2_checkbox_unchecked = NodePath("MarginContainer/UI_Controls/HBoxContainer2/PlayerTwoControls/CheckboxUnchecked")
 player2_checkbox_checked = NodePath("MarginContainer/UI_Controls/HBoxContainer2/PlayerTwoControls/CheckboxChecked")
 input_mappings_to_clear = Array[ExtResource("4_7774u")]([ExtResource("5_m7f1x"), ExtResource("6_ospsj"), ExtResource("7_h4ah3"), ExtResource("8_cjdgy"), ExtResource("9_rjrfp")])
-
-[node name="BG" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_bc3l0")
-expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

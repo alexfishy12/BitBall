@@ -93,16 +93,8 @@ func show_glyphs(player: String, input_type: String):
 		tree.call_group(player + "_joypad_glyphs", "hide")
 		tree.call_group(player + "_keyboard_glyphs", "show")
 
-func initialize_game(game_type: String):
-	var game_scene = GameScene.instantiate()
-	game_scene.game_type = game_type
-	
-	get_tree().root.add_child(game_scene)
-	
-	if get_tree().current_scene:
-		get_tree().current_scene.queue_free()
-	get_tree().current_scene = game_scene
-	
+func initialize_game(game_type: String):	
+	SceneManager.load_game(game_type)
 	set_glyphs()
 	#if player1_is_joypad:
 		#show_glyphs("p1", "joypad")
@@ -125,7 +117,7 @@ func leave_game():
 	red_wins = 0
 	game_is_paused = false
 	Events.emit_signal("game_is_paused", game_is_paused)
-	get_tree().change_scene_to_packed(main_menu)
+	SceneManager.load_main_menu()
 	delete_mappings("player1")
 	delete_mappings("player2")
 

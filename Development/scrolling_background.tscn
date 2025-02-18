@@ -8,6 +8,21 @@ shader = ExtResource("1_vain3")
 shader_parameter/x_speed = 0.1
 shader_parameter/y_speed = 0.0
 
+[sub_resource type="Animation" id="Animation_ipyf8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pattern:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.392157, 1, 0.498039)]
+}
+
 [sub_resource type="Animation" id="Animation_tud53"]
 resource_name = "color_fade"
 length = 40.0
@@ -23,21 +38,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0.235294), Color(0, 0.392157, 1, 0.235294), Color(1, 1, 1, 0.235294), Color(1, 0, 0, 0.235294), Color(1, 1, 1, 0.235294)]
-}
-
-[sub_resource type="Animation" id="Animation_ipyf8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pattern:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0.392157, 1, 0.498039)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lnton"]

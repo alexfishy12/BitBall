@@ -1,5 +1,7 @@
 extends Control
 
+signal loaded()
+
 @export_category("Menu Nodes")
 @export var menu_options: VBoxContainer
 @export var main_options: VBoxContainer
@@ -34,6 +36,10 @@ var player_select_ui: Control
 @export var focus_sound: AudioStream
 @export var select_sound: AudioStream
 
+@export_category("VFX")
+@export var shader_rect: ColorRect
+@export var pixelate_shader: ShaderMaterial
+
 var game_type: String
 
 @export var transition_time: float = 5
@@ -42,8 +48,13 @@ var ball_speed
 var center_of_screen := Vector2(320, 180)
 var ball_should_move := false
 
+
+
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func load_scene():
+	loaded.emit()
+	
+func activate():
 	set_volume_sliders_to_saved_values()
 	one_player_button.grab_focus()
 	Events.connect("button_focused", button_focused)
@@ -89,9 +100,11 @@ func setup_animation_ball(button_name):
 
 func _on_one_player_pressed():
 	main_options.hide()
+	title.hide()
 	player_select_ui = PlayerSelectScene.instantiate()
 	game_type = "one_player"
 	player_select_ui.game_type = game_type
+	await screen_transition()
 	add_child(player_select_ui)
 	player_select_ui.show()
 	player_select_ui.get_control_schemes()
@@ -101,6 +114,7 @@ func _on_one_player_pressed():
 
 func _on_two_players_pressed():
 	main_options.hide()
+	title.hide()
 	player_select_ui = PlayerSelectScene.instantiate()
 	game_type = "two_player"
 	player_select_ui.game_type = game_type
@@ -116,6 +130,7 @@ func _on_two_players_pressed():
 		
 func _on_player_select_ui_cancelled():
 	main_options.show()
+	title.show()
 	if game_type == "one_player":
 		one_player_button.grab_focus()
 	elif game_type == "two_player":
@@ -178,3 +193,10 @@ func db_to_volume(db: float) -> float:
 	if db <= -INF:
 		return 0.0
 	return 100.0 * pow(10.0, db / 20.0)
+	
+###########
+### VFX ###
+###########
+
+func screen_transition():
+	pass

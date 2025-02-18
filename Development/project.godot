@@ -28,6 +28,7 @@ buses/default_bus_layout="res://configured_bus_layout.tres"
 Singleton="*res://Autoloads/Singleton.tscn"
 Events="*res://Autoloads/Events.tscn"
 MusicManager="*res://Autoloads/Music/MusicManager.tscn"
+SceneManager="*res://scene_manager.tscn"
 
 [display]
 

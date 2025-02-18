@@ -1,5 +1,7 @@
 extends Node
 
+signal loaded()
+
 @export var score_label_blue: Label
 @export var score_label_red: Label
 @export var ui_controls: Control
@@ -26,7 +28,10 @@ var game_type : String = ""
 var player_1_wants_to_replay = false
 var player_2_wants_to_replay = false
 
-func _ready():
+func load_scene():
+	loaded.emit()
+	
+func activate():
 	if game_type == "one_player":
 		win_screen.hide_checkboxes()
 		if Singleton.player1_input_mappings.size() == 0:

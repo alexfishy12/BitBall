@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://debng1m6d0kg0"]
+
+[ext_resource type="Shader" path="res://pixelation_over_time.gdshader" id="1_ldkos"]
+
+[resource]
+shader = ExtResource("1_ldkos")
+shader_parameter/max_pixel_size = 25.0
+shader_parameter/progress = 1.0

@@ -228,7 +228,6 @@ alignment = 1
 
 [node name="Player2ServeUI" type="HBoxContainer" parent="UI/MarginContainer/HBox_Scores/HBox_Red"]
 visible = false
-modulate = Color(1, 1, 1, 0.952897)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/MarginContainer/HBox_Scores/HBox_Red/Player2ServeUI"]
