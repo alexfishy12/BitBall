@@ -14,7 +14,6 @@ band_db/8000_hz = -60.0
 band_db/16000_hz = -60.0
 
 [resource]
-bus/0/mute = true
 bus/1/name = &"SoundFX"
 bus/1/solo = false
 bus/1/mute = false

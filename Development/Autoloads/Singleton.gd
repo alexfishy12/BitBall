@@ -95,7 +95,6 @@ func show_glyphs(player: String, input_type: String):
 
 func initialize_game(game_type: String):	
 	SceneManager.load_game(game_type)
-	set_glyphs()
 	#if player1_is_joypad:
 		#show_glyphs("p1", "joypad")
 	#else:
@@ -115,8 +114,6 @@ func add_win_score(player: String):
 func leave_game():
 	blue_wins = 0
 	red_wins = 0
-	game_is_paused = false
-	Events.emit_signal("game_is_paused", game_is_paused)
 	SceneManager.load_main_menu()
 	delete_mappings("player1")
 	delete_mappings("player2")

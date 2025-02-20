@@ -29,9 +29,12 @@ var player_1_wants_to_replay = false
 var player_2_wants_to_replay = false
 
 func load_scene():
+	await get_tree().create_timer(1).timeout
 	loaded.emit()
+	print("game load emitted")
 	
 func activate():
+	Singleton.set_glyphs()
 	if game_type == "one_player":
 		win_screen.hide_checkboxes()
 		if Singleton.player1_input_mappings.size() == 0:
@@ -172,7 +175,7 @@ func _on_red_goal_body_entered(body):
 
 
 func reset_game():
-	Singleton.initialize_game(game_type)
+	SceneManager.load_rematched_game(game_type)
 	
 
 func reset_ball():

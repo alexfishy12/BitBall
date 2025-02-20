@@ -52,11 +52,18 @@ var ball_should_move := false
 
 # Called when the node enters the scene tree for the first time.
 func load_scene():
+	await get_tree().create_timer(1).timeout
 	loaded.emit()
 	
 func activate():
+	pass
+	
+func _ready():
+	SceneManager.current_scene = self
 	set_volume_sliders_to_saved_values()
 	one_player_button.grab_focus()
+	Singleton.game_is_paused = false
+	Events.emit_signal("game_is_paused", false)
 	Events.connect("button_focused", button_focused)
 	Events.connect("player_select_ui_cancelled", _on_player_select_ui_cancelled)
 	
