@@ -7,3 +7,7 @@
 default_font = ExtResource("1_33c4d")
 default_font_size = 32
 /styles/Button = ExtResource("1_lrwxe")
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
